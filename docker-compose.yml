@@ -1,0 +1,32 @@
+version: '3'
+services:
+  php:
+    build:
+      context: ./docker/php
+    restart: always
+    volumes:
+      - './src:/var/www/html'
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - './src:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+    depends_on:
+      - php
+      - db
+
+  db:
+    image: postgres:10.1
+    restart: always
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 54321:5432
