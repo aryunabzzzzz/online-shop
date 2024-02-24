@@ -6,8 +6,20 @@ $password = $_POST['psw'];
 $passwordRepeat = $_POST['psw-repeat'];
 
 //процедура валидации
+if (strlen($name)<3){
+    print_r("Слишком короткое имя пользователя");
+    return;
+}
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    print_r("Некорректно введён email");
+    return;
+}
 
+if ($password!=$passwordRepeat){
+    print_r("Пароли не совпадают!");
+    return;
+}
 //создание объекта класса
 $pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
 
