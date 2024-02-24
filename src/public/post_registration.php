@@ -1,5 +1,6 @@
 <?php
 //процедура валидации
+
 $errors = [];
 
 if (isset($_POST['name'])){
@@ -51,6 +52,8 @@ if (isset($_POST['psw-repeat'])){
 if (empty($errors)){
     //создание объекта класса
     $pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
+    //защита пароля
+    $password = password_hash($password, PASSWORD_DEFAULT);
     //добавление данных пользователя в БД + защита от SQL-инъекции
     $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
     $stmt->execute(['name'=>$name, 'email'=>$email, 'password'=>$password]);
