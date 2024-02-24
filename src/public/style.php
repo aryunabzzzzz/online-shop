@@ -25,11 +25,15 @@
     #signin:checked ~ #wrapper #arrow { left: 32px; }
     #signin:checked ~ button span { transform: translate3d(0,-72px,0); }
 
+    #signup:checked ~ #wrapper { height: 262px; }
+    #signup:checked ~ #wrapper #arrow { left: 137px; }
+    #signup:checked ~ button span { transform: translate3d(0,-144px,0); }
+
 
     form {
         width: 450px;
         height: 370px;
-        margin: -185px -225px;
+        margin: -300px -225px;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -69,7 +73,7 @@
         transition: all .2s ease-in-out;
     }
     button {
-        background: #079BCF;
+        background: #B22222;
         border: none;
         border-radius: 8px;
         color: #fff;
