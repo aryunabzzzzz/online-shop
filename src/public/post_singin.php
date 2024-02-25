@@ -34,14 +34,13 @@ if (empty($errors)){
     //проверка наличия пользователя
     if (!$user){
         $errors['email'] = 'Пользователя с таким адресом почты не существует';
-        require_once ('./singin.php');
-        die();
-    }
-    //проверка пароля
-    if (password_verify($password, $user['password'])){
-        echo "EEEE";
     } else {
-        $errors['psw'] = 'Неправильный пароль';
+        //проверка пароля
+        if (password_verify($password, $user['password'])){
+            echo "EEEE";
+        } else {
+            $errors['email'] = 'Неправильный адрес почты или пароль';
+        }
     }
 }
 

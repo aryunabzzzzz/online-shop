@@ -29,7 +29,6 @@
     input[type=radio] { display: none; }
 
     label {
-        cursor: pointer;
         display: inline-block;
         font-size: 22px;
         font-weight: 800;
@@ -37,13 +36,7 @@
         margin-bottom: 30px;
         text-transform: uppercase;
     }
-    label:hover {
-        transition: all .3s cubic-bezier(.6,0,.4,1);
-        opacity: 1;
-    }
-    label[for="signin"] { margin-right: 20px; }
-    label[for="reset"] { float: right; }
-    input[type=radio]:checked + label { opacity: 1; }
+
 
     input[type=text],
     input[type=password] {
