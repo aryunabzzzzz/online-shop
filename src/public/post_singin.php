@@ -26,12 +26,18 @@ if (isset($_POST['psw'])){
 
 
 if (empty($errors)){
-    //создание объекта класса
+    //соединение с БД
     $pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email'=>$email]);
     $user = $stmt->fetch();
-
+    //проверка наличия пользователя
+    if (!$user){
+        $errors['email'] = 'Пользователя с таким адресом почты не существует';
+        require_once ('./singin.php');
+        die();
+    }
+    //проверка пароля
     if (password_verify($password, $user['password'])){
         echo "EEEE";
     } else {
