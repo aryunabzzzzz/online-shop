@@ -17,19 +17,6 @@
         -webkit-font-smoothing: antialiased;
     }
 
-    #wrapper, label, #arrow, button span { transition: all .5s cubic-bezier(.6,0,.4,1); }
-
-    #wrapper { overflow: hidden; }
-
-    #signin:checked ~ #wrapper { height: 178px; }
-    #signin:checked ~ #wrapper #arrow { left: 32px; }
-    #signin:checked ~ button span { transform: translate3d(0,-72px,0); }
-
-    #signup:checked ~ #wrapper { height: 262px; }
-    #signup:checked ~ #wrapper #arrow { left: 137px; }
-    #signup:checked ~ button span { transform: translate3d(0,-144px,0); }
-
-
     form {
         width: 450px;
         height: 370px;

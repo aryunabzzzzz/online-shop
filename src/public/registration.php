@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <body>
+
 <form action="post_registration.php" method="POST">
 
     <input id="signup" name="action" type="radio" value="signup">
-    <label for="signup">Sign up</label>
+    <label>Sign up</label>
 
     <div id="wrapper">
         <div id="arrow"></div>
