@@ -1,6 +1,14 @@
+<?php
+
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: /singin.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
-<label> Welcome to shop!</label>
 <div class="product-wrap">
     <div class="product-item">
         <img src="https://html5book.ru/wp-content/uploads/2015/10/black-dress.jpg">

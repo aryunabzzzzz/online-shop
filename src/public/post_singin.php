@@ -37,7 +37,9 @@ if (empty($errors)){
     } else {
         //проверка пароля
         if (password_verify($password, $user['password'])){
-            echo "EEEE";
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            header("Location: /main.php");
         } else {
             $errors['email'] = 'Неправильный адрес почты или пароль';
         }
