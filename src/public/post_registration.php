@@ -47,7 +47,15 @@ if (isset($_POST['psw-repeat'])){
 } else {
     $errors['psw-repeat'] = 'Поле не должно быть пустым';
 }
+//проверка на повторяющуюся почту
+$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+$stmt->execute(['email'=>$email]);
+$user = $stmt->fetch();
 
+if ($user){
+    $errors['email'] = 'Пользователь с таким адресом почты уже существует';
+}
 
 if (empty($errors)){
     //создание объекта класса
@@ -60,8 +68,7 @@ if (empty($errors)){
     //возврат данных пользователя на экран
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email'=>$email]);
-    $result = $stmt->fetch();
-    print_r($result);
+    $user = $stmt->fetch();
 
 }
 
