@@ -5,26 +5,47 @@ if(!isset($_SESSION['user_id'])){
     header("Location: /singin.php");
 }
 
+$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
+$stmt = $pdo->query("SELECT * FROM products");
+$products = $stmt->fetchAll();
+
+if (empty($products)){
+    echo 'Товаров нет';
+    die();
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
+<?php foreach ($products as $product): ?>
+
 <div class="product-wrap">
     <div class="product-item">
-        <img src="https://html5book.ru/wp-content/uploads/2015/10/black-dress.jpg">
+        <img src="<?php echo $product['image']; ?>">
         <div class="product-buttons">
             <a href="" class="button">В корзину</a>
         </div>
     </div>
     <div class="product-title">
-        <a href="">Маленькое черное платье</a>
-        <span class="product-price">₽ 1999</span>
+        <a href=""><?php echo $product['name']; ?></a>
+        <p><?php echo $product['description']; ?></p>
+        <span class="product-price"><?php echo $product['price']; ?></span>
     </div>
 </div>
+
+<?php endforeach; ?>
 
 </html>
 
 <style>
+
+    body {
+        background: #CD5C5C;
+        color: #fff;
+        font-family: 'Raleway', sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
 
     * {
         box-sizing: border-box;
