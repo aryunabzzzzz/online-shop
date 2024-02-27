@@ -70,6 +70,7 @@ if (empty($errors)){
     $stmt->execute(['email'=>$email]);
     $user = $stmt->fetch();
 
+    header("Location: /singin.php");
 }
 
 require_once ('./registration.php');
