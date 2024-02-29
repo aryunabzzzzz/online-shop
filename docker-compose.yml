@@ -2,10 +2,11 @@ version: '3'
 services:
   php:
     build:
-      context: ./docker/php
+      context: ./docker
     restart: always
     volumes:
       - '.:/var/www/html'
+      - './docker/conf/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
     env_file:
       - .env
 
@@ -16,7 +17,7 @@ services:
       - 8080:80
     volumes:
       - '.:/var/www/html'
-      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+      - './docker/conf/nginx:/etc/nginx/conf.d'
     depends_on:
       - php
       - db
