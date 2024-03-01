@@ -1,34 +1,30 @@
 <?php
-function validation(array $arr):array
+function validationLogin(array $arr):array
 {
     $errors = [];
 
-    if (isset($arr['email'])){
-        $email = $arr['email'];
-        if (empty($email)){
-            $errors['email'] = 'Поле не должно быть пустым';
-        } elseif(stristr($email, '@') === FALSE) {
-            $errors['email'] = 'Некорректно введён email';
-        }
-    } else {
+    if (empty($arr['email'])){
         $errors['email'] = 'Поле не должно быть пустым';
+    } else {
+        $email = $arr['email'];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "Некорректно введён email";
+        }
     }
 
-    if (isset($arr['psw'])){
+    if (empty($arr['psw'])) {
+        $errors['psw'] = 'Поле не должно быть пустым';
+    } else {
         $password = $arr['psw'];
-        if (empty($password)){
-            $errors['psw'] = 'Поле не должно быть пустым';
-        } elseif (strlen($password)<3){
+        if (strlen($password)<3){
             $errors['psw'] = 'Слишком короткий пароль';
         }
-    } else {
-        $errors['psw'] = 'Поле не должно быть пустым';
     }
 
     return $errors;
 }
 
-$errors = validation($_POST);
+$errors = validationLogin($_POST);
 
 
 if (empty($errors)){
