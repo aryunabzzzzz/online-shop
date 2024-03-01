@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<form action="post_registration.php" method="POST">
+<form action="/registration" method="POST">
 
     <input id="signup" name="action" type="radio" value="signup">
     <label>Sign up</label>
