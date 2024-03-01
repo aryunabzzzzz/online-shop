@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<form action="post_singin.php" method="POST">
+<form action="post_login.php" method="POST">
 
     <input id="signin" name="action" type="radio" value="signin">
     <label>Sign in</label>
