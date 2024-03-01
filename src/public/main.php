@@ -2,7 +2,7 @@
 
 session_start();
 if(!isset($_SESSION['user_id'])){
-    header("Location: /login.php");
+    header("Location: /login");
 }
 
 $pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
