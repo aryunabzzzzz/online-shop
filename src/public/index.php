@@ -25,6 +25,14 @@ if ($uri === '/registration'){
     } else {
         echo "$method не поддерживается $uri";
     }
-} else {
+} elseif ($uri === '/add_product'){
+    if ($method === 'GET'){
+        require_once 'add_product.php';
+    } elseif ($method === 'POST'){
+        require_once 'post_add_product.php';
+    } else {
+        echo "$method не поддерживается $uri";
+    }
+}else {
     require_once '404.html';
 }
