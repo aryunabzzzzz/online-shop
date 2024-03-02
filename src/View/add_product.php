@@ -34,4 +34,4 @@ if(!isset($_SESSION['user_id'])){
 </html>
 
 <?php
-require_once ('./style.php');
+require_once ('./../View/style.php');

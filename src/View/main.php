@@ -5,12 +5,12 @@ if(!isset($_SESSION['user_id'])){
     header("Location: /login");
 }
 
-$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
-$stmt = $pdo->query("SELECT * FROM products");
-$products = $stmt->fetchAll();
+require_once './../Model/MainModel.php';
+$obj = new MainModel();
+$products = $obj->getAll();
 
 if (empty($products)){
-    echo 'Товаров нет';
+    echo "Товаров нет!";
     die();
 }
 ?>

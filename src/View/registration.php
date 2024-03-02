@@ -32,4 +32,4 @@
 </html>
 
 <?php
-require_once ('./style.php');
+require_once ('./../View/style.php');
