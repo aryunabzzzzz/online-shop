@@ -26,7 +26,7 @@
 
 </form>
 
-<div id="hint">Already have an account? <a href="http://localhost:8080/login.php">Sign in</div>
+<div id="hint">Already have an account? <a href="http://localhost:8080/login">Sign in</div>
 
 </body>
 </html>
