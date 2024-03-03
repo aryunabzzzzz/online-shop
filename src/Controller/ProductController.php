@@ -19,7 +19,13 @@ class ProductController
 
             require_once './../Model/ProductModel.php';
             $ProductModel = new ProductModel();
-            $ProductModel->addIntoTable($user_id, $product_id, $quantity);
+            $test = $ProductModel->checkTable($user_id,$product_id);
+
+            if($test){
+                $ProductModel->updateTable($user_id, $product_id, $quantity);
+            } else {
+                $ProductModel->addIntoTable($user_id, $product_id, $quantity);
+            }
 
             echo "Товар $product_id добавлен в количестве $quantity";
         }
