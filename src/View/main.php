@@ -19,20 +19,25 @@ if (empty($products)){
 <html>
 
 <?php foreach ($products as $product): ?>
+<form action="/main" method="POST">
 
-<div class="product-wrap">
-    <div class="product-item">
-        <img src="<?php echo $product['image']; ?>">
-        <div class="product-buttons">
-            <a href="" class="button">В корзину</a>
+    <div class="product-wrap">
+        <div class="product-item">
+            <img src="<?php echo $product['image']; ?>">
+            <div class="product-buttons">
+                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                <button class="button"> В корзину </button>
+            </div>
+        </div>
+        <div class="product-title">
+            <a><?php echo $product['name']; ?></a>
+            <p><?php echo $product['description']; ?></p>
+            <span class="product-price"><?php echo $product['price']; ?></span>
         </div>
     </div>
-    <div class="product-title">
-        <a><?php echo $product['name']; ?></a>
-        <p><?php echo $product['description']; ?></p>
-        <span class="product-price"><?php echo $product['price']; ?></span>
-    </div>
-</div>
+
+</form>
+
 
 <?php endforeach; ?>
 

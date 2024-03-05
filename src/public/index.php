@@ -28,6 +28,8 @@ if ($uri === '/registration'){
     $obj = new MainController();
     if($method === 'GET'){
         $obj->main();
+    } elseif ($method === 'POST'){
+        $obj->postMain();
     } else {
         echo "$method не поддерживается $uri";
     }
