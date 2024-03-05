@@ -5,8 +5,8 @@ if(!isset($_SESSION['user_id'])){
     header("Location: /login");
 }
 
-require_once './../Model/MainModel.php';
-$obj = new MainModel();
+require_once './../Model/Product.php';
+$obj = new Product();
 $products = $obj->getAll();
 
 if (empty($products)){
@@ -28,7 +28,7 @@ if (empty($products)){
         </div>
     </div>
     <div class="product-title">
-        <a href=""><?php echo $product['name']; ?></a>
+        <a><?php echo $product['name']; ?></a>
         <p><?php echo $product['description']; ?></p>
         <span class="product-price"><?php echo $product['price']; ?></span>
     </div>
@@ -130,12 +130,7 @@ if (empty($products)){
         bottom: 0;
         transition: .3s ease-in-out;
     }
-    .product-title a:hover {
-        color: #c0a97a;
-    }
-    .product-title:hover a:after {
-        background: #c0a97a;
-    }
+
     .product-price {
         font-size: 20px;
         color: #c0a97a;

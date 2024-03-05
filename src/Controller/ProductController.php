@@ -17,14 +17,13 @@ class ProductController
             $product_id = $_POST['product_id'];
             $quantity = $_POST['quantity'];
 
-            require_once './../Model/ProductModel.php';
-            $ProductModel = new ProductModel();
-            $test = $ProductModel->checkTable($user_id,$product_id);
+            require_once './../Model/UsersProducts.php';
+            $userProduct = new UsersProducts();
 
-            if($test){
-                $ProductModel->updateTable($user_id, $product_id, $quantity);
+            if($userProduct->getOneByUserIdProductId($user_id,$product_id)){
+                $userProduct->updateQuantity($user_id, $product_id, $quantity);
             } else {
-                $ProductModel->addIntoTable($user_id, $product_id, $quantity);
+                $userProduct->create($user_id, $product_id, $quantity);
             }
 
             echo "Товар $product_id добавлен в количестве $quantity";
@@ -40,10 +39,10 @@ class ProductController
         } else {
             $product_id = $arr['product_id'];
 
-            require_once './../Model/ProductModel.php';
-            $ProductModel = new ProductModel();
+            require_once './../Model/Product.php';
+            $product = new Product();
 
-            if (!$ProductModel->getOneById($product_id)){
+            if (!$product->getOneById($product_id)){
                 $errors['product_id'] = "Продукта с таким id не существует";
             }
         }
