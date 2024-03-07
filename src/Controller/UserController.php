@@ -6,7 +6,6 @@ class UserController
 
     public function __construct()
     {
-        require_once './../Model/User.php';
         $this->userModel = new User();
     }
 

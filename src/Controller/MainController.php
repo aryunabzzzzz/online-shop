@@ -5,7 +5,6 @@ class MainController
     private Product $productModel;
     public function __construct()
     {
-        require_once './../Model/Product.php';
         $this->productModel = new Product();
     }
     public function getMain()

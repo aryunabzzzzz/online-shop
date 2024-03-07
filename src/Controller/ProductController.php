@@ -1,13 +1,10 @@
 <?php
-
 class ProductController
 {
     private Product $productModel;
     private UserProduct $userProductModel;
     public function __construct()
     {
-        require_once './../Model/Product.php';
-        require_once './../Model/UserProduct.php';
         $this->productModel = new Product();
         $this->userProductModel = new UserProduct();
     }

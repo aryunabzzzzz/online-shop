@@ -3,8 +3,31 @@
 $uri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
+$autoloadController = function (string $className) {
+    $path = "./../Controller/$className.php";
+    if (file_exists($path)){
+        require_once $path;
+        return true;
+    } else {
+        return false;
+    }
+};
+
+$autoloadModel = function (string $className) {
+    $path = "./../Model/$className.php";
+    if (file_exists($path)){
+        require_once $path;
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
+spl_autoload_register($autoloadController);
+spl_autoload_register($autoloadModel);
+
 if ($uri === '/registration'){
-    require_once './../Controller/UserController.php';
     $obj = new UserController();
     if ($method === 'GET'){
         $obj->getRegistration();
@@ -14,7 +37,6 @@ if ($uri === '/registration'){
         echo "$method не поддерживается $uri";
     }
 } elseif ($uri === '/login'){
-    require_once './../Controller/UserController.php';
     $obj = new UserController();
     if ($method === 'GET'){
         $obj->getLogin();
@@ -24,7 +46,6 @@ if ($uri === '/registration'){
         echo "$method не поддерживается $uri";
     }
 } elseif ($uri === '/main'){
-    require_once './../Controller/MainController.php';
     $obj = new MainController();
     if($method === 'GET'){
         $obj->getMain();
@@ -32,7 +53,6 @@ if ($uri === '/registration'){
         echo "$method не поддерживается $uri";
     }
 } elseif ($uri === '/add_product'){
-    require_once './../Controller/ProductController.php';
     $obj = new ProductController();
     if ($method === 'POST'){
         $obj->postAddProduct();
