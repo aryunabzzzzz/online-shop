@@ -1,6 +1,6 @@
 <?php
 
-class UsersProducts
+class UserProduct
 {
     public function create($user_id, $product_id, $quantity)
     {

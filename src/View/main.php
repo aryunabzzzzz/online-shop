@@ -1,25 +1,8 @@
-<?php
-
-session_start();
-if(!isset($_SESSION['user_id'])){
-    header("Location: /login");
-}
-
-require_once './../Model/Product.php';
-$obj = new Product();
-$products = $obj->getAll();
-
-if (empty($products)){
-    echo "Товаров нет!";
-    die();
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
 <?php foreach ($products as $product): ?>
-<form action="/main" method="POST">
+<form action="/add_product" method="POST">
 
     <div class="product-wrap">
         <div class="product-item">

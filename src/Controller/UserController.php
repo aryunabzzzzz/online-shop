@@ -2,6 +2,14 @@
 
 class UserController
 {
+    private User $userModel;
+
+    public function __construct()
+    {
+        require_once './../Model/User.php';
+        $this->userModel = new User();
+    }
+
     public function getRegistration()
     {
         require_once ('./../View/registration.php');
@@ -18,9 +26,7 @@ class UserController
 
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            require_once './../Model/User.php';
-            $user = new User();
-            $user->create($name, $email, $password);
+            $this->userModel->create($name, $email, $password);
 
             header("Location: /login");
         }
@@ -48,9 +54,7 @@ class UserController
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = "Некорректно введён email";
             } else {
-                require_once './../Model/User.php';
-                $user = new User();
-                if ($user->getOneByEmail($email)){
+                if ($this->userModel->getOneByEmail($email)){
                     $errors['email'] = 'Пользователь с таким адресом почты уже существует';
                 }
             }
@@ -90,9 +94,7 @@ class UserController
             $email = $_POST['email'];
             $password = $_POST['psw'];
 
-            require_once './../Model/User.php';
-            $userModel = new User();
-            $user = $userModel->getOneByEmail($email);
+            $user = $this->userModel->getOneByEmail($email);
 
             if (!$user){
                 $errors['email'] = 'Пользователя с таким адресом почты не существует';

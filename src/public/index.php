@@ -27,18 +27,14 @@ if ($uri === '/registration'){
     require_once './../Controller/MainController.php';
     $obj = new MainController();
     if($method === 'GET'){
-        $obj->main();
-    } elseif ($method === 'POST'){
-        $obj->postMain();
+        $obj->getMain();
     } else {
         echo "$method не поддерживается $uri";
     }
 } elseif ($uri === '/add_product'){
     require_once './../Controller/ProductController.php';
     $obj = new ProductController();
-    if ($method === 'GET'){
-        $obj->addProduct();
-    } elseif ($method === 'POST'){
+    if ($method === 'POST'){
         $obj->postAddProduct();
     } else {
         echo "$method не поддерживается $uri";

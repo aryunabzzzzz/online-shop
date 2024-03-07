@@ -2,28 +2,23 @@
 
 class MainController
 {
-    public function main()
+    private Product $productModel;
+    public function __construct()
     {
-        require_once ('./../View/main.php');
+        require_once './../Model/Product.php';
+        $this->productModel = new Product();
     }
-
-    public function postMain()
+    public function getMain()
     {
         session_start();
-        $user_id = $_SESSION['user_id'];
-        $product_id = $_POST['id'];
-        $quantity = 1;
-
-        require_once './../Model/UsersProducts.php';
-        $userProduct = new UsersProducts();
-
-        if($userProduct->getOneByUserIdProductId($user_id,$product_id)){
-            $userProduct->updateQuantity($user_id, $product_id, $quantity);
-        } else {
-            $userProduct->create($user_id, $product_id, $quantity);
+        if(!isset($_SESSION['user_id'])){
+            header("Location: /login");
         }
+        $products = $this->productModel->getAll();
 
-        echo "Товар $product_id добавлен в количестве $quantity";
+        if (empty($products)){
+            header("Location: /404.html");
+        }
 
         require_once ('./../View/main.php');
     }
