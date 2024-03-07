@@ -60,5 +60,5 @@ if ($uri === '/registration'){
         echo "$method не поддерживается $uri";
     }
 }else {
-    require_once '404.html';
+    require_once './../View/404.html';
 }
