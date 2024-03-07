@@ -39,7 +39,14 @@ class App
             } else {
                 echo "$method не поддерживается $uri";
             }
-        }else {
+        } elseif ($uri === '/cart'){
+            $obj = new CartController();
+            if ($method === 'GET'){
+                $obj->getCart();
+            } else {
+                echo "$method не поддерживается $uri";
+            }
+        } else {
             require_once './../View/404.html';
         }
     }
