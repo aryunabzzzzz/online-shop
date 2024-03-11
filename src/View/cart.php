@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <a>Корзина</a>
-<?php foreach ($products as $product): ?>
-//поменять код
-        <div class="product-wrap">
-            <div class="product-item">
-                <img src="<?php echo $product['image']; ?>">
-                <div class="product-buttons">
-                    <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-                    <button class="button"> DELETE </button>
-                </div>
-            </div>
-            <div class="product-title">
-                <a><?php echo $product['name']; ?></a>
-                <p><?php echo $product['description']; ?></p>
-                <span class="product-price"><?php echo $product['price']; ?></span>
+<?php foreach ($cartProducts as $cartProduct): ?>
+
+<form action="/delete_product" method="POST">
+    <div class="product-wrap">
+        <div class="product-item">
+            <img src="<?php echo $cartProduct['image']; ?>">
+            <div class="product-buttons">
+                <input type="hidden" name="id" value="<?php echo $cartProduct['id']; ?>">
+                <input type="hidden" name="quantity" value="<?php echo $cartProduct['quantity']; ?>">
+                <button class="button"> DELETE </button>
             </div>
         </div>
+        <div class="product-title">
+            <a><?php echo $cartProduct['name']; ?></a>
+            <p>Количество <?php echo $cartProduct['quantity']; ?></p>
+            <span class="product-price"><?php echo $cartProduct['price']; ?></span>
+        </div>
+    </div>
+</form>
+
 
 
 <?php endforeach; ?>

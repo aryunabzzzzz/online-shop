@@ -39,6 +39,13 @@ class App
             } else {
                 echo "$method не поддерживается $uri";
             }
+        } elseif ($uri === '/delete_product'){
+            $obj = new ProductController();
+            if ($method === 'POST'){
+                $obj->postDeleteProduct();
+            } else {
+                echo "$method не поддерживается $uri";
+            }
         } elseif ($uri === '/cart'){
             $obj = new CartController();
             if ($method === 'GET'){

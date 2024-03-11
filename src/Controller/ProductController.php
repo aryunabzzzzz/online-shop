@@ -19,16 +19,32 @@ class ProductController
         $quantity = 1;
 
         if($this->userProductModel->getOneByUserIdProductId($userId,$productId)){
-            $this->userProductModel->updateQuantity($userId, $productId, $quantity);
+            $this->userProductModel->increaseQuantity($userId, $productId, $quantity);
         } else {
             $this->userProductModel->create($userId, $productId, $quantity);
         }
 
-//        echo "Товар $productId добавлен в количестве $quantity";
-//
-//        $products = $this->productModel->getAll();
-//        require_once ('./../View/main.php');
         header("Location: /main");
+
+    }
+
+    public function postDeleteProduct(): void
+    {
+        session_start();
+        if(!isset($_SESSION['user_id'])){
+            header("Location: /login");
+        }
+        $userId = $_SESSION['user_id'];
+        $productId = $_POST['id'];
+        $quantity = $_POST['quantity'];
+
+        if($quantity > 1){
+            $this->userProductModel->decreaseQuantity($userId, $productId, $quantity);
+        } else {
+            $this->userProductModel->delete($userId, $productId);
+        }
+
+        header("Location: /cart");
 
     }
 }

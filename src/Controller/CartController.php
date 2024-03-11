@@ -15,14 +15,15 @@ class CartController
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
-        $products = $this->productModel->getAll();
+
+        $userId = $_SESSION['user_id'];
+        $cartProducts = $this->userProductModel->getAllByUserId($userId);
+
+        if (!$cartProducts){
+            echo "Корзина пуста";
+        }
 
         require_once ('./../View/cart.php');
-    }
-
-    public function Cart()
-    {
-
     }
 
 }
