@@ -3,9 +3,11 @@
 class CartController
 {
     private Product $productModel;
+    private UserProduct $userProductModel;
     public function __construct()
     {
         $this->productModel = new Product();
+        $this->userProductModel = new UserProduct();
     }
     public function getCart(): void
     {
@@ -16,6 +18,11 @@ class CartController
         $products = $this->productModel->getAll();
 
         require_once ('./../View/cart.php');
+    }
+
+    public function Cart()
+    {
+
     }
 
 }

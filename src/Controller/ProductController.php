@@ -11,6 +11,9 @@ class ProductController
     public function postAddProduct(): void
     {
         session_start();
+        if(!isset($_SESSION['user_id'])){
+            header("Location: /login");
+        }
         $userId = $_SESSION['user_id'];
         $productId = $_POST['id'];
         $quantity = 1;
@@ -21,9 +24,11 @@ class ProductController
             $this->userProductModel->create($userId, $productId, $quantity);
         }
 
-        echo "Товар $productId добавлен в количестве $quantity";
+//        echo "Товар $productId добавлен в количестве $quantity";
+//
+//        $products = $this->productModel->getAll();
+//        require_once ('./../View/main.php');
+        header("Location: /main");
 
-        $products = $this->productModel->getAll();
-        require_once ('./../View/main.php');
     }
 }

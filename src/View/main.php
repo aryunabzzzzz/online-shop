@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-<form action="/cart" method="GET">
-    <button> CART </button>
-</form>
+<button><a href="http://localhost:8080/cart">Корзина</button>
 
 <?php foreach ($products as $product): ?>
 <form action="/add_product" method="POST">
