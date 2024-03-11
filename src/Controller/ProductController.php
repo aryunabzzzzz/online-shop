@@ -8,7 +8,7 @@ class ProductController
         $this->productModel = new Product();
         $this->userProductModel = new UserProduct();
     }
-    public function postAddProduct()
+    public function postAddProduct(): void
     {
         session_start();
         $userId = $_SESSION['user_id'];

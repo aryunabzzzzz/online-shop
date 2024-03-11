@@ -9,12 +9,12 @@ class UserController
         $this->userModel = new User();
     }
 
-    public function getRegistration()
+    public function getRegistration(): void
     {
         require_once ('./../View/registration.php');
     }
 
-    public function postRegistration()
+    public function postRegistration(): void
     {
         $errors = $this->validateRegistration($_POST);
 
@@ -80,12 +80,12 @@ class UserController
         return $errors;
     }
 
-    public function getLogin()
+    public function getLogin(): void
     {
         require_once ('./../View/login.php');
     }
 
-    public function postLogin()
+    public function postLogin(): void
     {
         $errors = $this->validationLogin($_POST);
 

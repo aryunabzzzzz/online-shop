@@ -2,7 +2,7 @@
 
 class Autoloader
 {
-    public function registrate()
+    public function registrate(): void
     {
         $autoloadController = function (string $className) {
             $path = "./../Controller/$className.php";

@@ -7,7 +7,7 @@ class CartController
     {
         $this->productModel = new Product();
     }
-    public function getCart()
+    public function getCart(): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){

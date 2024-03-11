@@ -7,7 +7,7 @@ class MainController
     {
         $this->productModel = new Product();
     }
-    public function getMain()
+    public function getMain(): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
