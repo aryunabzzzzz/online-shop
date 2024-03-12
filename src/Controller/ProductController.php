@@ -16,14 +16,14 @@ class ProductController
         $this->userProductModel = new UserProduct();
     }
 
-    public function postAddProduct(): void
+    public function postAddProduct(array $data): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
         $userId = $_SESSION['user_id'];
-        $productId = $_POST['id'];
+        $productId = $data['id'];
         $quantity = 1;
 
         if($this->userProductModel->getOneByUserIdProductId($userId,$productId)){
@@ -36,14 +36,14 @@ class ProductController
 
     }
 
-    public function postDeleteProduct(): void
+    public function postDeleteProduct(array $data): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
         $userId = $_SESSION['user_id'];
-        $productId = $_POST['id'];
+        $productId = $data['id'];
 
         $product = $this->userProductModel->getQuantityByUserIdProductId($userId, $productId);
         $quantity = $product ['quantity'];

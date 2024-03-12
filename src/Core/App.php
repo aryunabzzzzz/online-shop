@@ -63,19 +63,20 @@ class App
     ];
     public function run(): void
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        $method = $_SERVER['REQUEST_METHOD'];
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-        if (isset($this->routes[$uri])){
-            $routeMethod = $this->routes[$uri];
-            if (isset($routeMethod[$method])){
-                $handler = $routeMethod[$method];
+        if (isset($this->routes[$requestUri])){
+            $routeMethod = $this->routes[$requestUri];
+
+            if (isset($routeMethod[$requestMethod])){
+                $handler = $routeMethod[$requestMethod];
                 $className = $handler['class'];
-                $function = $handler['method'];
+                $method = $handler['method'];
                 $obj = new $className;
-                $obj->$function();
+                $obj->$method($_POST);
             } else {
-                echo "$method не поддерживается $uri";
+                echo "$requestMethod не поддерживается $requestUri";
             }
         } else {
             require_once './../View/404.html';
