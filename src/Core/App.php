@@ -65,14 +65,13 @@ class App
     {
         $uri = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-        $routes = $this->routes;
 
-        if (isset($routes[$uri])){
+        if (isset($this->routes[$uri])){
             $routeMethod = $this->routes[$uri];
             if (isset($routeMethod[$method])){
-                $test = $routeMethod[$method];
-                $className = $test['class'];
-                $function = $test['method'];
+                $handler = $routeMethod[$method];
+                $className = $handler['class'];
+                $function = $handler['method'];
                 $obj = new $className;
                 $obj->$function();
             } else {
