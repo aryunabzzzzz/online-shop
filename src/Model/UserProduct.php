@@ -18,18 +18,14 @@ class UserProduct extends Model
     {
         $stmt = $this->pdo->prepare("SELECT user_id, product_id FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
-        $userProduct = $stmt->fetch();
-
-        return $userProduct;
+        return $stmt->fetch();
     }
 
     public function getAllByUserId(int $user_id): array|false
     {
         $stmt = $this->pdo->prepare("SELECT products.id, products.name, products.description, products.price, products.image, users_products.quantity FROM products JOIN users_products ON products.id = users_products.product_id WHERE user_id =:user_id");
         $stmt->execute(['user_id' => $user_id]);
-        $userProduct = $stmt->fetchAll();
-
-        return $userProduct;
+        return $stmt->fetchAll();
     }
 
     public function decreaseQuantity(int $user_id, int $product_id, int $quantity): void
@@ -42,5 +38,12 @@ class UserProduct extends Model
     {
         $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
+    }
+
+    public function getQuantityByUserIdProductId(int $user_id, int $product_id): array|false
+    {
+        $stmt = $this->pdo->prepare("SELECT quantity FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
+        return $stmt->fetch();
     }
 }

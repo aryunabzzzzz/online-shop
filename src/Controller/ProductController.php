@@ -3,11 +3,13 @@ class ProductController
 {
     private Product $productModel;
     private UserProduct $userProductModel;
+
     public function __construct()
     {
         $this->productModel = new Product();
         $this->userProductModel = new UserProduct();
     }
+
     public function postAddProduct(): void
     {
         session_start();
@@ -36,7 +38,9 @@ class ProductController
         }
         $userId = $_SESSION['user_id'];
         $productId = $_POST['id'];
-        $quantity = $_POST['quantity'];
+
+        $product = $this->userProductModel->getQuantityByUserIdProductId($userId, $productId);
+        $quantity = $product ['quantity'];
 
         if($quantity > 1){
             $this->userProductModel->decreaseQuantity($userId, $productId, $quantity);

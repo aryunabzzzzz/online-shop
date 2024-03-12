@@ -2,13 +2,13 @@
 
 class CartController
 {
-    private Product $productModel;
     private UserProduct $userProductModel;
+
     public function __construct()
     {
-        $this->productModel = new Product();
         $this->userProductModel = new UserProduct();
     }
+
     public function getCart(): void
     {
         session_start();
@@ -18,12 +18,22 @@ class CartController
 
         $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductModel->getAllByUserId($userId);
+        $totalPrice = $this->getTotalPrice($cartProducts);
 
         if (!$cartProducts){
-            echo "Корзина пуста";
+            $notification = "Корзина пуста";
         }
 
         require_once ('./../View/cart.php');
+    }
+
+    public function getTotalPrice(array $cartProducts): float
+    {
+        $totalPrice = 0;
+        foreach ($cartProducts as $cartProduct) {
+            $totalPrice += ($cartProduct['price'] * $cartProduct['quantity']);
+        }
+        return $totalPrice;
     }
 
 }

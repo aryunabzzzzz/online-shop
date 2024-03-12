@@ -3,10 +3,12 @@
 class MainController
 {
     private Product $productModel;
+
     public function __construct()
     {
         $this->productModel = new Product();
     }
+
     public function getMain(): void
     {
         session_start();

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-<button><a href="http://localhost:8080/cart">Корзина</button>
+<button>
+<a href="http://localhost:8080/cart">
+    <img src="https://sun9-75.userapi.com/impg/xdOuULPth-4LPy1maTsdTmt_vliQd304VnYqsA/cBVpvvQPqyU.jpg?size=512x512&quality=96&sign=b3074561b3aa5d6af3e22415dea98233&type=album" width="50" height="50">
+</a>
+</button>
 
 <?php foreach ($products as $product): ?>
 <form action="/add_product" method="POST">

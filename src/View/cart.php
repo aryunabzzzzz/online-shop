@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<a>Корзина</a>
+<p><?php echo $notification ?? 'Корзина'; ?></p>
+<p>Товаров на сумму <?php echo $totalPrice; ?> ₽</p>
 <?php foreach ($cartProducts as $cartProduct): ?>
 
 <form action="/delete_product" method="POST">
@@ -20,8 +21,6 @@
         </div>
     </div>
 </form>
-
-
 
 <?php endforeach; ?>
 
