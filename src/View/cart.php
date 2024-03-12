@@ -7,7 +7,7 @@
     </div>
     <nav>
         <a class="active" href="http://localhost:8080/main">Главная</a>
-        <a href="#contact">Выйти</a>
+        <a href="http://localhost:8080/logout">Выйти</a>
         <a href="http://localhost:8080/cart">
             <img src="https://sun9-75.userapi.com/impg/xdOuULPth-4LPy1maTsdTmt_vliQd304VnYqsA/cBVpvvQPqyU.jpg?size=512x512&quality=96&sign=b3074561b3aa5d6af3e22415dea98233&type=album" width="30" height="30">
         </a>

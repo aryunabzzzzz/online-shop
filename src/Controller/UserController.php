@@ -140,4 +140,12 @@ class UserController
         return $errors;
     }
 
+    public function getLogout(): void
+    {
+        if (session_status() === PHP_SESSION_ACTIVE){
+            session_destroy();
+        }
+        header('Location: /login');
+    }
+
 }

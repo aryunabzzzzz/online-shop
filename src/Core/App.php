@@ -30,6 +30,12 @@ class App
                 'method'=>'postLogin'
             ],
         ],
+        '/logout'=>[
+            'GET'=>[
+                'class'=>UserController::class,
+                'method'=>'getLogout'
+            ],
+        ],
         '/main'=>[
             'GET'=>[
                 'class'=>MainController::class,
