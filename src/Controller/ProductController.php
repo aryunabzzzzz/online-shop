@@ -1,4 +1,10 @@
 <?php
+
+namespace Controller;
+
+use Model\Product;
+use Model\UserProduct;
+
 class ProductController
 {
     private Product $productModel;

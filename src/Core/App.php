@@ -1,49 +1,56 @@
 <?php
 
+namespace Core;
+
+use Controller\CartController;
+use Controller\MainController;
+use Controller\ProductController;
+use Controller\UserController;
+
 class App
 {
     private array $routes = [
         '/registration'=>[
             'GET'=>[
-                'class'=>'UserController',
+                'class'=>UserController::class,
                 'method'=>'getRegistration'
             ],
             'POST'=>[
-                'class'=>'UserController',
+                'class'=>UserController::class,
                 'method'=>'postRegistration'
             ],
         ],
         '/login'=>[
             'GET'=>[
-                'class'=>'UserController',
+                'class'=>UserController::class,
                 'method'=>'getLogin'
             ],
             'POST'=>[
-                'class'=>'UserController',
+                'class'=>UserController::class,
                 'method'=>'postLogin'
             ],
         ],
         '/main'=>[
             'GET'=>[
-                'class'=>'MainController',
+                'class'=>MainController::class,
                 'method'=>'getMain'
             ],
         ],
         '/add_product'=>[
             'POST'=>[
-                'class'=>'ProductController',
+                'class'=>ProductController::class,
                 'method'=>'postAddProduct'
             ],
         ],
         '/delete_product'=>[
             'POST'=>[
-                'class'=>'ProductController',
+                'class'=>ProductController::class,
                 'method'=>'postDeleteProduct'
             ],
         ],
         '/cart'=>[
             'GET'=>[
-                'class'=>'CartController',
+                'class'=>CartController::class,
                 'method'=>'getCart'
             ],
         ],

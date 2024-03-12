@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 class UserProduct extends Model
 {
     public function create(int $user_id, int $product_id, int $quantity): void
