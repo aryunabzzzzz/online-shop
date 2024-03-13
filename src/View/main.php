@@ -28,8 +28,8 @@
         </div>
         <form action="/add_product" method="POST">
         <div>
-            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-            <button class="button"> В корзину </button>
+             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+             <button class="button"> В корзину </button>
         </div>
         </form>
 

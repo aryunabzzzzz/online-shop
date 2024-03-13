@@ -54,6 +54,12 @@ class App
                 'method'=>'postDeleteProduct'
             ],
         ],
+        '/plus_product'=>[
+            'POST'=>[
+                'class'=>ProductController::class,
+                'method'=>'plusProduct'
+            ],
+        ],
         '/cart'=>[
             'GET'=>[
                 'class'=>CartController::class,

@@ -24,12 +24,21 @@
         </div>
         <div class="product-title">
             <a><?php echo $cartProduct['name']; ?></a>
+            <a><?php echo $cartProduct['quantity']; ?></a>
             <span class="product-price"><?php echo $cartProduct['price']; ?></span>
         </div>
+
+        <form action="/plus_product" method="POST">
+            <div>
+                <input type="hidden" name="id" value="<?php echo $cartProduct['id']; ?>">
+                <button class="button"> + </button>
+            </div>
+        </form>
+
         <form action="/delete_product" method="POST">
         <div>
             <input type="hidden" name="id" value="<?php echo $cartProduct['id']; ?>">
-            <button class="button"> DELETE </button>
+            <button class="button"> - </button>
         </div>
         </form>
     </div>
