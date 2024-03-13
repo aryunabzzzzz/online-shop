@@ -11,11 +11,13 @@
         <a href="http://localhost:8080/cart">
             <img src="https://sun9-75.userapi.com/impg/xdOuULPth-4LPy1maTsdTmt_vliQd304VnYqsA/cBVpvvQPqyU.jpg?size=512x512&quality=96&sign=b3074561b3aa5d6af3e22415dea98233&type=album" width="30" height="30">
         </a>
+        <a href="http://localhost:8080/order">Оформить</a>
     </nav>
 </header>
 
 <p><?php echo $notification ?? 'Корзина'; ?></p>
 <p>Товаров на сумму <?php echo $totalPrice; ?> ₽</p>
+
 <?php foreach ($cartProducts as $cartProduct): ?>
 
     <div class="product-wrap">

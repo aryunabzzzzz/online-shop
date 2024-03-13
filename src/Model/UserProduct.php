@@ -48,4 +48,10 @@ class UserProduct extends Model
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
         return $stmt->fetch();
     }
+
+    public function deleteAllByUserId(int $user_id): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id");
+        $stmt->execute(['user_id'=>$user_id]);
+    }
 }
