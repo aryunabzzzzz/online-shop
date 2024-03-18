@@ -4,7 +4,6 @@ namespace Core;
 
 use Controller\CartController;
 use Controller\MainController;
-use Controller\ProductController;
 use Controller\UserController;
 use Controller\OrderController;
 
@@ -45,19 +44,19 @@ class App
         ],
         '/add_product'=>[
             'POST'=>[
-                'class'=>ProductController::class,
+                'class'=>CartController::class,
                 'method'=>'postAddProduct'
             ],
         ],
         '/delete_product'=>[
             'POST'=>[
-                'class'=>ProductController::class,
+                'class'=>CartController::class,
                 'method'=>'postDeleteProduct'
             ],
         ],
         '/plus_product'=>[
             'POST'=>[
-                'class'=>ProductController::class,
+                'class'=>CartController::class,
                 'method'=>'plusProduct'
             ],
         ],
