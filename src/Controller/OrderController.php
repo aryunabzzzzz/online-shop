@@ -3,23 +3,20 @@
 namespace Controller;
 
 use Model\UserProduct;
-use Model\Customer;
-use Model\ProductOrder;
-use Model\CustomerOrder;
+use Model\Order;
+use Model\OrderProduct;
 
 class OrderController
 {
     private UserProduct $userProductModel;
-    private Customer $customerModel;
-    private ProductOrder $productOrderModel;
-    private CustomerOrder $customerOrderModel;
+    private Order $orderModel;
+    private OrderProduct $orderProductModel;
 
     public function __construct()
     {
         $this->userProductModel = new UserProduct();
-        $this->customerModel = new Customer();
-        $this->productOrderModel = new ProductOrder();
-        $this->customerOrderModel = new CustomerOrder();
+        $this->orderModel = new Order();
+        $this->orderProductModel = new OrderProduct();
     }
 
     public function getOrder(): void
@@ -67,10 +64,11 @@ class OrderController
             $phone = $data['phone'];
             $address = $data['address'];
 
-            $this->customerModel->create($userId, $fullName, $phone, $address);
+            $this->orderModel->create($userId, $fullName, $phone, $address);
+            $orderId = $this->orderModel->getOrderId();
 
             foreach ($cartProducts as $cartProduct) {
-                $this->productOrderModel->create($cartProduct['id'], $cartProduct['name'], $cartProduct['quantity'], $cartProduct['price']);
+                $this->orderProductModel->create($orderId, $cartProduct['id'], $cartProduct['quantity'], $cartProduct['price']);
             }
 
             $this->userProductModel->deleteAllByUserId($userId);
