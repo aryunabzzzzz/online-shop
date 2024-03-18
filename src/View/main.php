@@ -19,16 +19,16 @@
 
     <div class="product-wrap">
         <div class="product-item">
-            <img src="<?php echo $product['image']; ?>">
+            <img src="<?php echo $product->getImage(); ?>">
         </div>
         <div class="product-title">
-            <a><?php echo $product['name']; ?></a>
-            <p><?php echo $product['description']; ?></p>
-            <span class="product-price"><?php echo $product['price']; ?></span>
+            <a><?php echo $product->getName(); ?></a>
+            <p><?php echo $product->getDescription(); ?></p>
+            <span class="product-price"><?php echo $product->getPrice(); ?></span>
         </div>
         <form action="/add_product" method="POST">
         <div>
-             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+             <input type="hidden" name="id" value="<?php echo $product->getId(); ?>">
              <button class="button"> В корзину </button>
         </div>
         </form>

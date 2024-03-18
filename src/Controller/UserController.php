@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Model\User;
+use Entity\UserEntity;
 
 class UserController
 {
@@ -102,9 +103,9 @@ class UserController
             if (!$user){
                 $errors['email'] = 'Пользователя с таким адресом почты не существует';
             } else {
-                if (password_verify($password, $user['password'])){
+                if (password_verify($password, $user->getPassword())){
                     session_start();
-                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_id'] = $user->getId();
                     header("Location: /main");
                 } else {
                     $errors['email'] = 'Неправильный адрес почты или пароль';
