@@ -48,16 +48,20 @@ class OrderController
 
     public function postOrder(array $data): void
     {
-        $errors = $this->validateOrder($data);
-
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
 
+        $errors = $this->validateOrder($data);
+
         $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductModel->getAllByUserId($userId);
         $totalPrice = $this->getTotalPrice($cartProducts);
+
+        if (!$cartProducts){
+            $errors['cart'] = "Корзина пуста";
+        }
 
         if (empty($errors)){
             $fullName = $data['fullName'];

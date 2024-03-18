@@ -33,6 +33,7 @@
 
                 </div>
                 <input type="submit" value="Оформить" class="btn">
+                <p><?php echo $errors['cart'] ?? ''; ?></p>
             </form>
         </div>
     </div>
