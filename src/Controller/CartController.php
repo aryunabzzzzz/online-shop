@@ -51,7 +51,7 @@ class CartController
         $quantity = 1;
 
         if($this->userProductModel->getOneByUserIdProductId($userId,$productId)){
-            $this->userProductModel->increaseQuantity($userId, $productId, $quantity);
+            $this->userProductModel->increaseQuantity($userId, $productId);
         } else {
             $this->userProductModel->create($userId, $productId, $quantity);
         }
@@ -69,7 +69,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $data['id'];
 
-        $product = $this->userProductModel->getQuantityByUserIdProductId($userId, $productId);
+        $product = $this->userProductModel->getOneByUserIdProductId($userId,$productId);
         $quantity = $product ['quantity'];
 
         if($quantity > 1){
@@ -91,8 +91,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $data['id'];
 
-        $product = $this->userProductModel->getQuantityByUserIdProductId($userId, $productId);
-        $quantity = 1;
+        $this->userProductModel->increaseQuantity($userId, $productId);
 
         header("Location: /cart");
 

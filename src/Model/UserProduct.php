@@ -10,15 +10,15 @@ class UserProduct extends Model
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id, 'quantity'=>$quantity]);
     }
 
-    public function increaseQuantity(int $user_id, int $product_id, int $quantity): void
+    public function increaseQuantity(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("UPDATE users_products SET quantity = (quantity + :quantity) WHERE user_id = :user_id AND product_id = :product_id");
-        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id, 'quantity'=>$quantity]);
+        $stmt = $this->pdo->prepare("UPDATE users_products SET quantity = (quantity + 1) WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function getOneByUserIdProductId(int $user_id, int $product_id): array|false
     {
-        $stmt = $this->pdo->prepare("SELECT user_id, product_id FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt = $this->pdo->prepare("SELECT * FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
         return $stmt->fetch();
     }
@@ -40,13 +40,6 @@ class UserProduct extends Model
     {
         $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
-    }
-
-    public function getQuantityByUserIdProductId(int $user_id, int $product_id): array|false
-    {
-        $stmt = $this->pdo->prepare("SELECT quantity FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
-        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
-        return $stmt->fetch();
     }
 
     public function deleteAllByUserId(int $user_id): void
