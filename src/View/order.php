@@ -42,7 +42,7 @@
         <div class="container">
             <h4>Корзина <span class="price" style="color:white"></span></h4>
             <?php foreach ($cartProducts as $cartProduct): ?>
-            <p><a><?php echo $cartProduct['name']; ?></a> <a>  - <?php echo $cartProduct['quantity']; ?> шт</a> <span class="price"><?php echo $cartProduct['price']; ?> ₽ </span> </p>
+            <p><a><?php echo $cartProduct->getProductEntity()->getName(); ?></a> <a>  - <?php echo $cartProduct->getQuantity(); ?> шт</a> <span class="price"><?php echo $cartProduct->getProductEntity()->getPrice(); ?> ₽ </span> </p>
             <?php endforeach; ?>
             <hr>
             <p>Итого <span class="price" style="color:white"><b><?php echo $totalPrice; ?> ₽</b></span></p>

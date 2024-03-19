@@ -41,7 +41,7 @@ class OrderController
     {
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct) {
-            $totalPrice += ($cartProduct['price'] * $cartProduct['quantity']);
+            $totalPrice += ($cartProduct->getProductEntity()->getPrice()* $cartProduct->getQuantity());
         }
         return $totalPrice;
     }
@@ -72,7 +72,7 @@ class OrderController
             $orderId = $this->orderModel->getOrderId();
 
             foreach ($cartProducts as $cartProduct) {
-                $this->orderProductModel->create($orderId, $cartProduct['id'], $cartProduct['quantity'], $cartProduct['price']);
+                $this->orderProductModel->create($orderId, $cartProduct->getProductEntity()->getId(), $cartProduct->getQuantity(), $cartProduct->getProductEntity()->getPrice());
             }
 
             $this->userProductModel->deleteAllByUserId($userId);

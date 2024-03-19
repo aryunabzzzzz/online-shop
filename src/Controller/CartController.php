@@ -34,7 +34,7 @@ class CartController
     {
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct) {
-            $totalPrice += ($cartProduct['price'] * $cartProduct['quantity']);
+            $totalPrice += ($cartProduct->getProductEntity()->getPrice() * $cartProduct->getQuantity());
         }
         return $totalPrice;
     }
@@ -69,11 +69,10 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $data['id'];
 
-        $product = $this->userProductModel->getOneByUserIdProductId($userId,$productId);
-        $quantity = $product ['quantity'];
+        $quantity = $this->userProductModel->getOneByUserIdProductId($userId,$productId)->getQuantity();
 
         if($quantity > 1){
-            $this->userProductModel->decreaseQuantity($userId, $productId, $quantity);
+            $this->userProductModel->decreaseQuantity($userId, $productId);
         } else {
             $this->userProductModel->delete($userId, $productId);
         }

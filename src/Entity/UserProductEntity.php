@@ -2,18 +2,21 @@
 
 namespace Entity;
 
+use Entity\UserEntity;
+use Entity\ProductEntity;
+
 class UserProductEntity
 {
     private int $id;
-    private int $userId;
-    private  int $productId;
+    private UserEntity $userEntity;
+    private  ProductEntity $productEntity;
     private int $quantity;
 
-    public function __construct(int $id, int $userId, int $productId, int $quantity)
+    public function __construct(int $id, UserEntity $userEntity, ProductEntity $productEntity, int $quantity)
     {
         $this->id = $id;
-        $this->userId = $userId;
-        $this->productId = $productId;
+        $this->userEntity = $userEntity;
+        $this->productEntity = $productEntity;
         $this->quantity = $quantity;
     }
 
@@ -22,14 +25,14 @@ class UserProductEntity
         return $this->id;
     }
 
-    public function getUserId(): int
+    public function getUserEntity(): UserEntity
     {
-        return $this->userId;
+        return $this->userEntity;
     }
 
-    public function getProductId(): int
+    public function getProductEntity(): ProductEntity
     {
-        return $this->productId;
+        return $this->productEntity;
     }
 
     public function getQuantity(): int

@@ -22,24 +22,24 @@
 
     <div class="product-wrap">
         <div class="product-item">
-            <img src="<?php echo $cartProduct['image']; ?>">
+            <img src="<?php echo $cartProduct->getProductEntity()->getImage(); ?>">
         </div>
         <div class="product-title">
-            <a><?php echo $cartProduct['name']; ?></a>
-            <a><?php echo $cartProduct['quantity']; ?></a>
-            <span class="product-price"><?php echo $cartProduct['price']; ?></span>
+            <a><?php echo $cartProduct->getProductEntity()->getName(); ?></a>
+            <a><?php echo $cartProduct->getQuantity(); ?></a>
+            <span class="product-price"><?php echo $cartProduct->getProductEntity()->getPrice(); ?></span>
         </div>
 
         <form action="/plus_product" method="POST">
             <div>
-                <input type="hidden" name="id" value="<?php echo $cartProduct['id']; ?>">
+                <input type="hidden" name="id" value="<?php echo $cartProduct->getProductEntity()->getId(); ?>">
                 <button class="button"> + </button>
             </div>
         </form>
 
         <form action="/delete_product" method="POST">
         <div>
-            <input type="hidden" name="id" value="<?php echo $cartProduct['id']; ?>">
+            <input type="hidden" name="id" value="<?php echo $cartProduct->getProductEntity()->getId(); ?>">
             <button class="button"> - </button>
         </div>
         </form>
