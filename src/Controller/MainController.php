@@ -2,15 +2,15 @@
 
 namespace Controller;
 
-use Model\Product;
+use Repository\ProductRepository;
 
 class MainController
 {
-    private Product $productModel;
+    private ProductRepository $productRepository;
 
     public function __construct()
     {
-        $this->productModel = new Product();
+        $this->productRepository = new ProductRepository();
     }
 
     public function getMain(): void
@@ -19,7 +19,7 @@ class MainController
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
-        $products = $this->productModel->getAll();
+        $products = $this->productRepository->getAll();
 
         if (empty($products)){
             header("Location: /404.html");

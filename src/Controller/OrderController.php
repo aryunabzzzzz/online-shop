@@ -2,21 +2,21 @@
 
 namespace Controller;
 
-use Model\UserProduct;
-use Model\Order;
-use Model\OrderProduct;
+use Repository\UserProductRepository;
+use Repository\OrderRepository;
+use Repository\OrderProductRepository;
 
 class OrderController
 {
-    private UserProduct $userProductModel;
-    private Order $orderModel;
-    private OrderProduct $orderProductModel;
+    private UserProductRepository $userProductRepository;
+    private OrderRepository $orderRepository;
+    private OrderProductRepository $orderProductRepository;
 
     public function __construct()
     {
-        $this->userProductModel = new UserProduct();
-        $this->orderModel = new Order();
-        $this->orderProductModel = new OrderProduct();
+        $this->userProductRepository = new UserProductRepository();
+        $this->orderRepository = new OrderRepository();
+        $this->orderProductRepository = new OrderProductRepository();
     }
 
     public function getOrder(): void
@@ -27,7 +27,7 @@ class OrderController
         }
 
         $userId = $_SESSION['user_id'];
-        $cartProducts = $this->userProductModel->getAllByUserId($userId);
+        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->getTotalPrice($cartProducts);
 
         if (!$cartProducts){
@@ -56,7 +56,7 @@ class OrderController
         $errors = $this->validateOrder($data);
 
         $userId = $_SESSION['user_id'];
-        $cartProducts = $this->userProductModel->getAllByUserId($userId);
+        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->getTotalPrice($cartProducts);
 
         if (!$cartProducts){
@@ -68,14 +68,14 @@ class OrderController
             $phone = $data['phone'];
             $address = $data['address'];
 
-            $this->orderModel->create($userId, $fullName, $phone, $address);
-            $orderId = $this->orderModel->getOrderId();
+            $this->orderRepository->create($userId, $fullName, $phone, $address);
+            $orderId = $this->orderRepository->getOrderId();
 
             foreach ($cartProducts as $cartProduct) {
-                $this->orderProductModel->create($orderId, $cartProduct->getProductEntity()->getId(), $cartProduct->getQuantity(), $cartProduct->getProductEntity()->getPrice());
+                $this->orderProductRepository->create($orderId, $cartProduct->getProductEntity()->getId(), $cartProduct->getQuantity(), $cartProduct->getProductEntity()->getPrice());
             }
 
-            $this->userProductModel->deleteAllByUserId($userId);
+            $this->userProductRepository->deleteAllByUserId($userId);
 
             header("Location: /main");
         }

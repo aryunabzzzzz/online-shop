@@ -1,12 +1,12 @@
 <?php
 
-namespace Model;
+namespace Repository;
 
 use Entity\ProductEntity;
 use Entity\UserEntity;
 use Entity\UserProductEntity;
 
-class UserProduct extends Model
+class UserProductRepository extends Repository
 {
     public function create(int $user_id, int $product_id, int $quantity): void
     {
@@ -38,10 +38,7 @@ class UserProduct extends Model
             return null;
         }
 
-        return new UserProductEntity($userProduct['id'],
-            new UserEntity($userProduct['user_id'], $userProduct['user_name'], $userProduct['email'], $userProduct['password']),
-            new ProductEntity($userProduct['product_id'], $userProduct['product_name'], $userProduct['description'], $userProduct['price'], $userProduct['image']),
-            $userProduct['quantity']);
+        return $this->hydrate($userProduct);
 
     }
 
@@ -67,10 +64,7 @@ class UserProduct extends Model
         $userProductsArr = [];
 
         foreach ($userProducts as $userProduct){
-            $userProductsArr[] = new UserProductEntity($userProduct['id'],
-            new UserEntity($userProduct['user_id'], $userProduct['user_name'], $userProduct['email'], $userProduct['password']),
-            new ProductEntity($userProduct['product_id'], $userProduct['product_name'], $userProduct['description'], $userProduct['price'], $userProduct['image']),
-            $userProduct['quantity']);
+            $userProductsArr[] = $this->hydrate($userProduct);
         }
 
         return $userProductsArr;
@@ -92,5 +86,13 @@ class UserProduct extends Model
     {
         $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id");
         $stmt->execute(['user_id'=>$user_id]);
+    }
+
+    public function hydrate(array $data): UserProductEntity
+    {
+        return new UserProductEntity($data['id'],
+            new UserEntity($data['user_id'], $data['user_name'], $data['email'], $data['password']),
+            new ProductEntity($data['product_id'], $data['product_name'], $data['description'], $data['price'], $data['image']),
+            $data['quantity']);
     }
 }

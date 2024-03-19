@@ -1,10 +1,10 @@
 <?php
 
-namespace Model;
+namespace Repository;
 
 use Entity\UserEntity;
 
-class User extends Model
+class UserRepository extends Repository
 {
     public function getOneByEmail(string $email): UserEntity|null
     {
@@ -16,12 +16,17 @@ class User extends Model
             return null;
         }
 
-        return new UserEntity($user['id'], $user['name'], $user['email'], $user['password']);
+        return $this->hydrate($user);
     }
 
     public function create(string $name, string $email, string $password): void
     {
         $stmt = $this->pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
         $stmt->execute(['name'=>$name, 'email'=>$email, 'password'=>$password]);
+    }
+
+    public function hydrate(array $data): UserEntity
+    {
+        return new UserEntity($data['id'], $data['name'], $data['email'], $data['password']);
     }
 }

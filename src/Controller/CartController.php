@@ -2,14 +2,14 @@
 
 namespace Controller;
 
-use Model\UserProduct;
+use Repository\UserProductRepository;
 class CartController
 {
-    private UserProduct $userProductModel;
+    private UserProductRepository $userProductRepository;
 
     public function __construct()
     {
-        $this->userProductModel = new UserProduct();
+        $this->userProductRepository = new UserProductRepository();
     }
 
     public function getCart(): void
@@ -20,7 +20,7 @@ class CartController
         }
 
         $userId = $_SESSION['user_id'];
-        $cartProducts = $this->userProductModel->getAllByUserId($userId);
+        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->getTotalPrice($cartProducts);
 
         if (!$cartProducts){
@@ -50,10 +50,10 @@ class CartController
         $productId = $data['id'];
         $quantity = 1;
 
-        if($this->userProductModel->getOneByUserIdProductId($userId,$productId)){
-            $this->userProductModel->increaseQuantity($userId, $productId);
+        if($this->userProductRepository->getOneByUserIdProductId($userId,$productId)){
+            $this->userProductRepository->increaseQuantity($userId, $productId);
         } else {
-            $this->userProductModel->create($userId, $productId, $quantity);
+            $this->userProductRepository->create($userId, $productId, $quantity);
         }
 
         header("Location: /main");
@@ -69,12 +69,12 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $data['id'];
 
-        $quantity = $this->userProductModel->getOneByUserIdProductId($userId,$productId)->getQuantity();
+        $quantity = $this->userProductRepository->getOneByUserIdProductId($userId,$productId)->getQuantity();
 
         if($quantity > 1){
-            $this->userProductModel->decreaseQuantity($userId, $productId);
+            $this->userProductRepository->decreaseQuantity($userId, $productId);
         } else {
-            $this->userProductModel->delete($userId, $productId);
+            $this->userProductRepository->delete($userId, $productId);
         }
 
         header("Location: /cart");
@@ -90,7 +90,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $data['id'];
 
-        $this->userProductModel->increaseQuantity($userId, $productId);
+        $this->userProductRepository->increaseQuantity($userId, $productId);
 
         header("Location: /cart");
 

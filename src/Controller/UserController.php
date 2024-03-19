@@ -2,16 +2,15 @@
 
 namespace Controller;
 
-use Model\User;
-use Entity\UserEntity;
+use Repository\UserRepository;
 
 class UserController
 {
-    private User $userModel;
+    private UserRepository $userRepository;
 
     public function __construct()
     {
-        $this->userModel = new User();
+        $this->userRepository = new UserRepository();
     }
 
     public function getRegistration(): void
@@ -30,7 +29,7 @@ class UserController
 
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $this->userModel->create($name, $email, $password);
+            $this->userRepository->create($name, $email, $password);
 
             header("Location: /login");
         }
@@ -58,7 +57,7 @@ class UserController
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = "Некорректно введён email";
             } else {
-                if ($this->userModel->getOneByEmail($email)){
+                if ($this->userRepository->getOneByEmail($email)){
                     $errors['email'] = 'Пользователь с таким адресом почты уже существует';
                 }
             }
@@ -98,7 +97,7 @@ class UserController
             $email = $data['email'];
             $password = $data['psw'];
 
-            $user = $this->userModel->getOneByEmail($email);
+            $user = $this->userRepository->getOneByEmail($email);
 
             if (!$user){
                 $errors['email'] = 'Пользователя с таким адресом почты не существует';
