@@ -6,6 +6,11 @@ use Controller\CartController;
 use Controller\MainController;
 use Controller\UserController;
 use Controller\OrderController;
+use Request\CartRequest;
+use Request\LoginRequest;
+use Request\OrderRequest;
+use Request\RegistrationRequest;
+use Request\Request;
 
 class App
 {
@@ -17,7 +22,8 @@ class App
             ],
             'POST'=>[
                 'class'=>UserController::class,
-                'method'=>'postRegistration'
+                'method'=>'postRegistration',
+                'request'=>RegistrationRequest::class
             ],
         ],
         '/login'=>[
@@ -27,7 +33,8 @@ class App
             ],
             'POST'=>[
                 'class'=>UserController::class,
-                'method'=>'postLogin'
+                'method'=>'postLogin',
+                'request'=>LoginRequest::class
             ],
         ],
         '/logout'=>[
@@ -45,19 +52,22 @@ class App
         '/add_product'=>[
             'POST'=>[
                 'class'=>CartController::class,
-                'method'=>'postAddProduct'
+                'method'=>'postAddProduct',
+                'request'=>CartRequest::class
             ],
         ],
         '/delete_product'=>[
             'POST'=>[
                 'class'=>CartController::class,
-                'method'=>'postDeleteProduct'
+                'method'=>'postDeleteProduct',
+                'request'=>CartRequest::class
             ],
         ],
         '/plus_product'=>[
             'POST'=>[
                 'class'=>CartController::class,
-                'method'=>'plusProduct'
+                'method'=>'plusProduct',
+                'request'=>CartRequest::class
             ],
         ],
         '/cart'=>[
@@ -73,7 +83,8 @@ class App
             ],
             'POST'=>[
                 'class'=>OrderController::class,
-                'method'=>'postOrder'
+                'method'=>'postOrder',
+                'request'=>OrderRequest::class
             ],
         ],
     ];
@@ -87,10 +98,20 @@ class App
 
             if (isset($routeMethod[$requestMethod])){
                 $handler = $routeMethod[$requestMethod];
+
                 $className = $handler['class'];
                 $method = $handler['method'];
+                $requestClass = Request::class;
+
+                if (isset($handler['request'])){
+                    $requestClass = $handler['request'];
+                }
+
+                $request = new $requestClass($method, $requestUri, headers_list(), $_POST);
+
                 $obj = new $className;
-                $obj->$method($_POST);
+                $obj->$method($request);
+
             } else {
                 echo "$requestMethod не поддерживается $requestUri";
             }

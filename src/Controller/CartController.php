@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Repository\UserProductRepository;
+use Request\CartRequest;
+
 class CartController
 {
     private UserProductRepository $userProductRepository;
@@ -39,7 +41,7 @@ class CartController
         return $totalPrice;
     }
 
-    public function postAddProduct(array $data): void
+    public function postAddProduct(CartRequest $request): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
@@ -47,7 +49,7 @@ class CartController
         }
 
         $userId = $_SESSION['user_id'];
-        $productId = $data['id'];
+        $productId = $request->getProductId();
         $quantity = 1;
 
         if($this->userProductRepository->getOneByUserIdProductId($userId,$productId)){
@@ -60,14 +62,14 @@ class CartController
 
     }
 
-    public function postDeleteProduct(array $data): void
+    public function postDeleteProduct(CartRequest $request): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
         $userId = $_SESSION['user_id'];
-        $productId = $data['id'];
+        $productId = $request->getProductId();
 
         $quantity = $this->userProductRepository->getOneByUserIdProductId($userId,$productId)->getQuantity();
 
@@ -81,14 +83,14 @@ class CartController
 
     }
 
-    public function plusProduct(array $data): void
+    public function plusProduct(CartRequest $request): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
         $userId = $_SESSION['user_id'];
-        $productId = $data['id'];
+        $productId = $request->getProductId();
 
         $this->userProductRepository->increaseQuantity($userId, $productId);
 

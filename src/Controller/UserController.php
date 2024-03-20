@@ -2,7 +2,10 @@
 
 namespace Controller;
 
+use http\Env\Request;
 use Repository\UserRepository;
+use Request\LoginRequest;
+use Request\RegistrationRequest;
 
 class UserController
 {
@@ -18,14 +21,14 @@ class UserController
         require_once ('./../View/registration.php');
     }
 
-    public function postRegistration(array $data): void
+    public function postRegistration(RegistrationRequest $request): void
     {
-        $errors = $this->validateRegistration($data);
+        $errors = $request->validate();
 
         if (empty($errors)){
-            $name = $data['name'];
-            $email = $data['email'];
-            $password = $data['psw'];
+            $name = $request->getName();
+            $email = $request->getEmail();
+            $password = $request->getPassword();
 
             $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -37,65 +40,18 @@ class UserController
         require_once ('./../View/registration.php');
     }
 
-    private function validateRegistration(array $data):array
-    {
-        $errors = [];
-
-        if (empty($data['name'])){
-            $errors['name'] = 'Поле не должно быть пустым';
-        } else {
-            $name = $data['name'];
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-                $errors['name'] = "Поле должно содержать только буквы и пробелы";
-            }
-        }
-
-        if (empty($data['email'])){
-            $errors['email'] = 'Поле не должно быть пустым';
-        } else {
-            $email = $data['email'];
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = "Некорректно введён email";
-            } else {
-                if ($this->userRepository->getOneByEmail($email)){
-                    $errors['email'] = 'Пользователь с таким адресом почты уже существует';
-                }
-            }
-        }
-
-        if (empty($data['psw'])) {
-            $errors['psw'] = 'Поле не должно быть пустым';
-        } else {
-            $password = $data['psw'];
-            if (strlen($password)<3){
-                $errors['psw'] = 'Слишком короткий пароль';
-            }
-        }
-
-        if (empty($data['psw-repeat'])) {
-            $errors['psw-repeat'] = 'Поле не должно быть пустым';
-        } else {
-            $passwordRepeat = $data['psw-repeat'];
-            if ($passwordRepeat !== $password){
-                $errors['psw-repeat'] = 'Пароли не совпадают!';
-            }
-        }
-
-        return $errors;
-    }
-
     public function getLogin(): void
     {
         require_once ('./../View/login.php');
     }
 
-    public function postLogin(array $data): void
+    public function postLogin(LoginRequest $request): void
     {
-        $errors = $this->validationLogin($data);
+        $errors = $request->validate();
 
         if (empty($errors)){
-            $email = $data['email'];
-            $password = $data['psw'];
+            $email = $request->getEmail();
+            $password = $request->getPassword();
 
             $user = $this->userRepository->getOneByEmail($email);
 
@@ -113,31 +69,6 @@ class UserController
         }
 
         require_once ('./../View/login.php');
-    }
-
-    private function validationLogin(array $arr):array
-    {
-        $errors = [];
-
-        if (empty($arr['email'])){
-            $errors['email'] = 'Поле не должно быть пустым';
-        } else {
-            $email = $arr['email'];
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = "Некорректно введён email";
-            }
-        }
-
-        if (empty($arr['psw'])) {
-            $errors['psw'] = 'Поле не должно быть пустым';
-        } else {
-            $password = $arr['psw'];
-            if (strlen($password)<3){
-                $errors['psw'] = 'Слишком короткий пароль';
-            }
-        }
-
-        return $errors;
     }
 
     public function getLogout(): void

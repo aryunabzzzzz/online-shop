@@ -5,6 +5,7 @@ namespace Controller;
 use Repository\UserProductRepository;
 use Repository\OrderRepository;
 use Repository\OrderProductRepository;
+use Request\OrderRequest;
 
 class OrderController
 {
@@ -41,19 +42,19 @@ class OrderController
     {
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct) {
-            $totalPrice += ($cartProduct->getProductEntity()->getPrice()* $cartProduct->getQuantity());
+            $totalPrice += ($cartProduct->getProductEntity()->getPrice() * $cartProduct->getQuantity());
         }
         return $totalPrice;
     }
 
-    public function postOrder(array $data): void
+    public function postOrder(OrderRequest $request): void
     {
         session_start();
         if(!isset($_SESSION['user_id'])){
             header("Location: /login");
         }
 
-        $errors = $this->validateOrder($data);
+        $errors = $request->validate();
 
         $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
@@ -64,9 +65,9 @@ class OrderController
         }
 
         if (empty($errors)){
-            $fullName = $data['fullName'];
-            $phone = $data['phone'];
-            $address = $data['address'];
+            $fullName = $request->getFullName();
+            $phone = $request->getPhone();
+            $address = $request->getAddress();
 
             $this->orderRepository->create($userId, $fullName, $phone, $address);
             $orderId = $this->orderRepository->getOrderId();
@@ -80,43 +81,7 @@ class OrderController
             header("Location: /main");
         }
 
-
         require_once ('./../View/order.php');
 
     }
-
-    public function validateOrder(array $data): array
-    {
-        $errors = [];
-
-        if (empty($data['fullName'])){
-            $errors['fullName'] = 'Поле не должно быть пустым';
-        } else {
-            $fullName = $data['fullName'];
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$fullName)) {
-                $errors['fullName'] = "Поле должно содержать только буквы и пробелы";
-            }
-        }
-
-        if (empty($data['phone'])){
-            $errors['phone'] = 'Поле не должно быть пустым';
-        } else {
-            $phone = $data['phone'];
-            if (!preg_match("/^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/",$phone)) {
-                $errors['phone'] = "Неккоректный номер телефона";
-            }
-        }
-
-        if (empty($data['address'])){
-            $errors['address'] = 'Поле не должно быть пустым';
-        } else {
-            $address = $data['address'];
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$address)) {
-                $errors['address'] = "Поле должно содержать только буквы и пробелы";
-            }
-        }
-
-        return $errors;
-    }
-
 }
