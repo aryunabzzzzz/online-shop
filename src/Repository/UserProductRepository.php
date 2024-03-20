@@ -8,10 +8,10 @@ use Entity\UserProductEntity;
 
 class UserProductRepository extends Repository
 {
-    public function create(int $user_id, int $product_id, int $quantity): void
+    public function create(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("INSERT INTO users_products (user_id, product_id, quantity) VALUES (:user_id, :product_id, :quantity)");
-        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id, 'quantity'=>$quantity]);
+        $stmt = $this->pdo->prepare("INSERT INTO users_products (user_id, product_id, quantity) VALUES (:user_id, :product_id, 1)");
+        $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function increaseQuantity(int $user_id, int $product_id): void

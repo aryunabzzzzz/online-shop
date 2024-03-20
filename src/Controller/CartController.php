@@ -50,12 +50,11 @@ class CartController
 
         $userId = $_SESSION['user_id'];
         $productId = $request->getProductId();
-        $quantity = 1;
 
         if($this->userProductRepository->getOneByUserIdProductId($userId,$productId)){
             $this->userProductRepository->increaseQuantity($userId, $productId);
         } else {
-            $this->userProductRepository->create($userId, $productId, $quantity);
+            $this->userProductRepository->create($userId, $productId);
         }
 
         header("Location: /main");
