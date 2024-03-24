@@ -2,7 +2,6 @@
 
 namespace Controller;
 
-use Repository\UserProductRepository;
 use Request\OrderRequest;
 use Service\OrderService;
 use Service\CartService;
@@ -10,14 +9,12 @@ use Service\AuthenticationService;
 
 class OrderController
 {
-    private UserProductRepository $userProductRepository;
     private OrderService $orderService;
     private CartService $cartService;
     private AuthenticationService $authenticationService;
 
     public function __construct()
     {
-        $this->userProductRepository = new UserProductRepository();
         $this->orderService = new OrderService();
         $this->cartService = new CartService();
         $this->authenticationService = new AuthenticationService();
@@ -31,7 +28,7 @@ class OrderController
 
         $userId = $this->authenticationService->getCurrentUser()->getId();
 
-        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
+        $cartProducts = $this->cartService->getCartProducts($userId);
         $totalPrice = $this->cartService->getTotalPrice($userId);
 
         if (!$cartProducts){
@@ -39,15 +36,6 @@ class OrderController
         }
 
         require_once ('./../View/order.php');
-    }
-
-    public function getTotalPrice(array $cartProducts): float
-    {
-        $totalPrice = 0;
-        foreach ($cartProducts as $cartProduct) {
-            $totalPrice += ($cartProduct->getProductEntity()->getPrice() * $cartProduct->getQuantity());
-        }
-        return $totalPrice;
     }
 
     public function postOrder(OrderRequest $request): void
@@ -60,8 +48,8 @@ class OrderController
 
         $errors = $request->validate();
 
-        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
-        $totalPrice = $this->getTotalPrice($cartProducts);
+        $cartProducts = $this->cartService->getCartProducts($userId);
+        $totalPrice = $this->cartService->getTotalPrice($userId);
 
         if (!$cartProducts){
             $errors['cart'] = "Корзина пуста";

@@ -33,4 +33,25 @@ class AuthenticationService
         return null;
     }
 
+    public function login(string $email, string $password): int|null
+    {
+        $user = $this->userRepository->getOneByEmail($email);
+
+        if (password_verify($password, $user->getPassword())){
+            session_start();
+            $_SESSION['user_id'] = $user->getId();
+            return $_SESSION['user_id'];
+        } else {
+            return null;
+        }
+    }
+
+    public function logout(): void
+    {
+        session_start();
+        if (session_status() === PHP_SESSION_ACTIVE){
+            session_destroy();
+        }
+    }
+
 }

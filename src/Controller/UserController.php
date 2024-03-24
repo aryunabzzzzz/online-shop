@@ -2,18 +2,20 @@
 
 namespace Controller;
 
-use http\Env\Request;
 use Repository\UserRepository;
 use Request\LoginRequest;
 use Request\RegistrationRequest;
+use Service\AuthenticationService;
 
 class UserController
 {
     private UserRepository $userRepository;
+    private AuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->userRepository = new UserRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function getRegistration(): void
@@ -58,9 +60,7 @@ class UserController
             if (!$user){
                 $errors['email'] = 'Пользователя с таким адресом почты не существует';
             } else {
-                if (password_verify($password, $user->getPassword())){
-                    session_start();
-                    $_SESSION['user_id'] = $user->getId();
+                if ($this->authenticationService->login($email, $password)){
                     header("Location: /main");
                 } else {
                     $errors['email'] = 'Неправильный адрес почты или пароль';
@@ -73,10 +73,7 @@ class UserController
 
     public function getLogout(): void
     {
-        session_start();
-        if (session_status() === PHP_SESSION_ACTIVE){
-            session_destroy();
-        }
+        $this->authenticationService->logout();
         header('Location: /login');
     }
 

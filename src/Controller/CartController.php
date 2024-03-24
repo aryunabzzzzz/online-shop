@@ -2,20 +2,17 @@
 
 namespace Controller;
 
-use Repository\UserProductRepository;
 use Request\CartRequest;
 use Service\CartService;
 use Service\AuthenticationService;
 
 class CartController
 {
-    private UserProductRepository $userProductRepository;
     private CartService $cartService;
     private AuthenticationService $authenticationService;
 
     public function __construct()
     {
-        $this->userProductRepository = new UserProductRepository();
         $this->cartService = new  CartService();
         $this->authenticationService = new AuthenticationService();
     }
@@ -28,7 +25,7 @@ class CartController
 
         $userId = $this->authenticationService->getCurrentUser()->getId();
 
-        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
+        $cartProducts = $this->cartService->getCartProducts($userId);
         $totalPrice = $this->cartService->getTotalPrice($userId);
 
         if (!$cartProducts){

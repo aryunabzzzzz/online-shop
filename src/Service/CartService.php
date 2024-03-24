@@ -35,13 +35,18 @@ class CartService
 
     public function getTotalPrice(int $userId): float
     {
-        $cartProducts = $this->userProductRepository->getAllByUserId($userId);
+        $cartProducts = $this->getCartProducts($userId);
 
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct) {
             $totalPrice += ($cartProduct->getProductEntity()->getPrice() * $cartProduct->getQuantity());
         }
         return $totalPrice;
+    }
+
+    public function getCartProducts(int $userId): array
+    {
+        return $this->userProductRepository->getAllByUserId($userId);
     }
 
 }
