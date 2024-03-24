@@ -3,21 +3,18 @@
 namespace Controller;
 
 use Repository\UserProductRepository;
-use Repository\OrderRepository;
-use Repository\OrderProductRepository;
 use Request\OrderRequest;
+use Service\OrderService;
 
 class OrderController
 {
     private UserProductRepository $userProductRepository;
-    private OrderRepository $orderRepository;
-    private OrderProductRepository $orderProductRepository;
+    private OrderService $orderService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
-        $this->orderRepository = new OrderRepository();
-        $this->orderProductRepository = new OrderProductRepository();
+        $this->orderService = new OrderService();
     }
 
     public function getOrder(): void
@@ -65,18 +62,7 @@ class OrderController
         }
 
         if (empty($errors)){
-            $fullName = $request->getFullName();
-            $phone = $request->getPhone();
-            $address = $request->getAddress();
-
-            $this->orderRepository->create($userId, $fullName, $phone, $address);
-            $orderId = $this->orderRepository->getOrderId();
-
-            foreach ($cartProducts as $cartProduct) {
-                $this->orderProductRepository->create($orderId, $cartProduct->getProductEntity()->getId(), $cartProduct->getQuantity(), $cartProduct->getProductEntity()->getPrice());
-            }
-
-            $this->userProductRepository->deleteAllByUserId($userId);
+            $this->orderService->create($userId, $request->getFullName(), $request->getPhone(), $request->getAddress());
 
             header("Location: /main");
         }
