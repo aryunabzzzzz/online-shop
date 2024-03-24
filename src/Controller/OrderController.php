@@ -6,28 +6,31 @@ use Repository\UserProductRepository;
 use Request\OrderRequest;
 use Service\OrderService;
 use Service\CartService;
+use Service\AuthenticationService;
 
 class OrderController
 {
     private UserProductRepository $userProductRepository;
     private OrderService $orderService;
     private CartService $cartService;
+    private AuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
         $this->orderService = new OrderService();
         $this->cartService = new CartService();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function getOrder(): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
 
-        $userId = $_SESSION['user_id'];
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->cartService->getTotalPrice($userId);
 
@@ -49,14 +52,14 @@ class OrderController
 
     public function postOrder(OrderRequest $request): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
 
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $errors = $request->validate();
 
-        $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->getTotalPrice($cartProducts);
 

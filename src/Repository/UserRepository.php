@@ -19,6 +19,19 @@ class UserRepository extends Repository
         return $this->hydrate($user);
     }
 
+    public function getOneById(int $userId): UserEntity|null
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->execute(['id'=>$userId]);
+        $user = $stmt->fetch();
+
+        if (!$user){
+            return null;
+        }
+
+        return $this->hydrate($user);
+    }
+
     public function create(string $name, string $email, string $password): void
     {
         $stmt = $this->pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");

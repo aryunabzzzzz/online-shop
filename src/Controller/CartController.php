@@ -5,26 +5,29 @@ namespace Controller;
 use Repository\UserProductRepository;
 use Request\CartRequest;
 use Service\CartService;
+use Service\AuthenticationService;
 
 class CartController
 {
     private UserProductRepository $userProductRepository;
     private CartService $cartService;
+    private AuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
         $this->cartService = new  CartService();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function getCart(): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
 
-        $userId = $_SESSION['user_id'];
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
         $totalPrice = $this->cartService->getTotalPrice($userId);
 
@@ -37,12 +40,12 @@ class CartController
 
     public function postAddProduct(CartRequest $request): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
 
-        $userId = $_SESSION['user_id'];
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $productId = $request->getProductId();
 
         $this->cartService->addProduct($userId, $productId);
@@ -53,11 +56,12 @@ class CartController
 
     public function postDeleteProduct(CartRequest $request): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
-        $userId = $_SESSION['user_id'];
+
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $productId = $request->getProductId();
 
         $this->cartService->deleteProduct($userId, $productId);
@@ -68,11 +72,12 @@ class CartController
 
     public function plusProduct(CartRequest $request): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
-        $userId = $_SESSION['user_id'];
+
+        $userId = $this->authenticationService->getCurrentUser()->getId();
+
         $productId = $request->getProductId();
 
         $this->cartService->addProduct($userId, $productId);

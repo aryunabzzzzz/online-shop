@@ -3,22 +3,25 @@
 namespace Controller;
 
 use Repository\ProductRepository;
+use Service\AuthenticationService;
 
 class MainController
 {
     private ProductRepository $productRepository;
+    private AuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->productRepository = new ProductRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function getMain(): void
     {
-        session_start();
-        if(!isset($_SESSION['user_id'])){
+        if(!$this->authenticationService->check()){
             header("Location: /login");
         }
+
         $products = $this->productRepository->getAll();
 
         if (empty($products)){
