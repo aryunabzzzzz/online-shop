@@ -55,16 +55,10 @@ class UserController
             $email = $request->getEmail();
             $password = $request->getPassword();
 
-            $user = $this->userRepository->getOneByEmail($email);
-
-            if (!$user){
-                $errors['email'] = 'Пользователя с таким адресом почты не существует';
-            } else {
-                if ($this->authenticationService->login($email, $password)){
+            if ($this->authenticationService->login($email, $password)){
                     header("Location: /main");
-                } else {
+            } else {
                     $errors['email'] = 'Неправильный адрес почты или пароль';
-                }
             }
         }
 

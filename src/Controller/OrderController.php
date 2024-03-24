@@ -26,10 +26,8 @@ class OrderController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
-        $cartProducts = $this->cartService->getCartProducts($userId);
-        $totalPrice = $this->cartService->getTotalPrice($userId);
+        $cartProducts = $this->cartService->getProducts();
+        $totalPrice = $this->cartService->getTotalPrice();
 
         if (!$cartProducts){
             $notification = "Корзина пуста";
@@ -44,19 +42,18 @@ class OrderController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
         $errors = $request->validate();
 
-        $cartProducts = $this->cartService->getCartProducts($userId);
-        $totalPrice = $this->cartService->getTotalPrice($userId);
+        $cartProducts = $this->cartService->getProducts();
+        $totalPrice = $this->cartService->getTotalPrice();
 
         if (!$cartProducts){
             $errors['cart'] = "Корзина пуста";
         }
 
         if (empty($errors)){
-            $this->orderService->create($userId, $request->getFullName(), $request->getPhone(), $request->getAddress());
+            $user = $this->authenticationService->getCurrentUser();
+            $this->orderService->create($user->getId(), $request->getFullName(), $request->getPhone(), $request->getAddress());
 
             header("Location: /main");
         }

@@ -33,17 +33,22 @@ class AuthenticationService
         return null;
     }
 
-    public function login(string $email, string $password): int|null
+    public function login(string $email, string $password): bool
     {
         $user = $this->userRepository->getOneByEmail($email);
+
+        if (!$user){
+            return false;
+        }
 
         if (password_verify($password, $user->getPassword())){
             session_start();
             $_SESSION['user_id'] = $user->getId();
-            return $_SESSION['user_id'];
-        } else {
-            return null;
+
+            return true;
         }
+
+        return false;
     }
 
     public function logout(): void

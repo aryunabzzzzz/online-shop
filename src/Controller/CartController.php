@@ -23,10 +23,8 @@ class CartController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
-        $cartProducts = $this->cartService->getCartProducts($userId);
-        $totalPrice = $this->cartService->getTotalPrice($userId);
+        $cartProducts = $this->cartService->getProducts();
+        $totalPrice = $this->cartService->getTotalPrice();
 
         if (!$cartProducts){
             $notification = "Корзина пуста";
@@ -41,11 +39,8 @@ class CartController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
         $productId = $request->getProductId();
-
-        $this->cartService->addProduct($userId, $productId);
+        $this->cartService->addProduct($productId);
 
         header("Location: /main");
 
@@ -57,11 +52,8 @@ class CartController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
         $productId = $request->getProductId();
-
-        $this->cartService->deleteProduct($userId, $productId);
+        $this->cartService->deleteProduct($productId);
 
         header("Location: /cart");
 
@@ -73,11 +65,8 @@ class CartController
             header("Location: /login");
         }
 
-        $userId = $this->authenticationService->getCurrentUser()->getId();
-
         $productId = $request->getProductId();
-
-        $this->cartService->addProduct($userId, $productId);
+        $this->cartService->addProduct($productId);
 
         header("Location: /cart");
 

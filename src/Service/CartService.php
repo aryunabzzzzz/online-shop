@@ -7,14 +7,23 @@ use Repository\UserProductRepository;
 class CartService
 {
     private UserProductRepository $userProductRepository;
+    private AuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
-    public function addProduct(int $userId, int $productId): void
+    public function addProduct(int $productId): void
     {
+        $user = $this->authenticationService->getCurrentUser();
+        if(!$user){
+            return;
+        }
+
+        $userId = $user->getId();
+
         if($this->userProductRepository->getOneByUserIdProductId($userId,$productId)){
             $this->userProductRepository->increaseQuantity($userId, $productId);
         } else {
@@ -22,8 +31,15 @@ class CartService
         }
     }
 
-    public function deleteProduct(int $userId, int $productId): void
+    public function deleteProduct(int $productId): void
     {
+        $user = $this->authenticationService->getCurrentUser();
+        if(!$user){
+            return;
+        }
+
+        $userId = $user->getId();
+
         $quantity = $this->userProductRepository->getOneByUserIdProductId($userId,$productId)->getQuantity();
 
         if($quantity > 1){
@@ -33,9 +49,13 @@ class CartService
         }
     }
 
-    public function getTotalPrice(int $userId): float
+    public function getTotalPrice(): float
     {
-        $cartProducts = $this->getCartProducts($userId);
+        $cartProducts = $this->getProducts();
+
+        if (empty($cartProducts)){
+            return 0;
+        }
 
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct) {
@@ -44,9 +64,14 @@ class CartService
         return $totalPrice;
     }
 
-    public function getCartProducts(int $userId): array
+    public function getProducts(): array
     {
-        return $this->userProductRepository->getAllByUserId($userId);
+        $user = $this->authenticationService->getCurrentUser();
+        if(!$user){
+            return [];
+        }
+
+        return $this->userProductRepository->getAllByUserId($user->getId());
     }
 
 }
