@@ -4,14 +4,17 @@ namespace Controller;
 
 use Repository\UserProductRepository;
 use Request\CartRequest;
+use Service\CartService;
 
 class CartController
 {
     private UserProductRepository $userProductRepository;
+    private CartService $cartService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
+        $this->cartService = new  CartService();
     }
 
     public function getCart(): void
@@ -23,22 +26,13 @@ class CartController
 
         $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
-        $totalPrice = $this->getTotalPrice($cartProducts);
+        $totalPrice = $this->cartService->getTotalPrice($userId);
 
         if (!$cartProducts){
             $notification = "Корзина пуста";
         }
 
         require_once ('./../View/cart.php');
-    }
-
-    public function getTotalPrice(array $cartProducts): float
-    {
-        $totalPrice = 0;
-        foreach ($cartProducts as $cartProduct) {
-            $totalPrice += ($cartProduct->getProductEntity()->getPrice() * $cartProduct->getQuantity());
-        }
-        return $totalPrice;
     }
 
     public function postAddProduct(CartRequest $request): void
@@ -51,11 +45,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $request->getProductId();
 
-        if($this->userProductRepository->getOneByUserIdProductId($userId,$productId)){
-            $this->userProductRepository->increaseQuantity($userId, $productId);
-        } else {
-            $this->userProductRepository->create($userId, $productId);
-        }
+        $this->cartService->addProduct($userId, $productId);
 
         header("Location: /main");
 
@@ -70,13 +60,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $request->getProductId();
 
-        $quantity = $this->userProductRepository->getOneByUserIdProductId($userId,$productId)->getQuantity();
-
-        if($quantity > 1){
-            $this->userProductRepository->decreaseQuantity($userId, $productId);
-        } else {
-            $this->userProductRepository->delete($userId, $productId);
-        }
+        $this->cartService->deleteProduct($userId, $productId);
 
         header("Location: /cart");
 
@@ -91,7 +75,7 @@ class CartController
         $userId = $_SESSION['user_id'];
         $productId = $request->getProductId();
 
-        $this->userProductRepository->increaseQuantity($userId, $productId);
+        $this->cartService->addProduct($userId, $productId);
 
         header("Location: /cart");
 

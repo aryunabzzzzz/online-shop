@@ -5,16 +5,19 @@ namespace Controller;
 use Repository\UserProductRepository;
 use Request\OrderRequest;
 use Service\OrderService;
+use Service\CartService;
 
 class OrderController
 {
     private UserProductRepository $userProductRepository;
     private OrderService $orderService;
+    private CartService $cartService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
         $this->orderService = new OrderService();
+        $this->cartService = new CartService();
     }
 
     public function getOrder(): void
@@ -26,7 +29,7 @@ class OrderController
 
         $userId = $_SESSION['user_id'];
         $cartProducts = $this->userProductRepository->getAllByUserId($userId);
-        $totalPrice = $this->getTotalPrice($cartProducts);
+        $totalPrice = $this->cartService->getTotalPrice($userId);
 
         if (!$cartProducts){
             $notification = "Корзина пуста";
