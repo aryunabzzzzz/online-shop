@@ -2,92 +2,12 @@
 
 namespace Core;
 
-use Controller\CartController;
-use Controller\MainController;
-use Controller\UserController;
-use Controller\OrderController;
-use Request\CartRequest;
-use Request\LoginRequest;
-use Request\OrderRequest;
-use Request\RegistrationRequest;
 use Request\Request;
 
 class App
 {
-    private array $routes = [
-        '/registration'=>[
-            'GET'=>[
-                'class'=>UserController::class,
-                'method'=>'getRegistration'
-            ],
-            'POST'=>[
-                'class'=>UserController::class,
-                'method'=>'postRegistration',
-                'request'=>RegistrationRequest::class
-            ],
-        ],
-        '/login'=>[
-            'GET'=>[
-                'class'=>UserController::class,
-                'method'=>'getLogin'
-            ],
-            'POST'=>[
-                'class'=>UserController::class,
-                'method'=>'postLogin',
-                'request'=>LoginRequest::class
-            ],
-        ],
-        '/logout'=>[
-            'GET'=>[
-                'class'=>UserController::class,
-                'method'=>'getLogout'
-            ],
-        ],
-        '/main'=>[
-            'GET'=>[
-                'class'=>MainController::class,
-                'method'=>'getMain'
-            ],
-        ],
-        '/add_product'=>[
-            'POST'=>[
-                'class'=>CartController::class,
-                'method'=>'postAddProduct',
-                'request'=>CartRequest::class
-            ],
-        ],
-        '/delete_product'=>[
-            'POST'=>[
-                'class'=>CartController::class,
-                'method'=>'postDeleteProduct',
-                'request'=>CartRequest::class
-            ],
-        ],
-        '/plus_product'=>[
-            'POST'=>[
-                'class'=>CartController::class,
-                'method'=>'plusProduct',
-                'request'=>CartRequest::class
-            ],
-        ],
-        '/cart'=>[
-            'GET'=>[
-                'class'=>CartController::class,
-                'method'=>'getCart'
-            ],
-        ],
-        '/order'=>[
-            'GET'=>[
-                'class'=>OrderController::class,
-                'method'=>'getOrder'
-            ],
-            'POST'=>[
-                'class'=>OrderController::class,
-                'method'=>'postOrder',
-                'request'=>OrderRequest::class
-            ],
-        ],
-    ];
+    private array $routes = [];
+
     public function run(): void
     {
         $requestUri = $_SERVER['REQUEST_URI'];
@@ -118,6 +38,24 @@ class App
         } else {
             require_once './../View/404.html';
         }
+    }
+
+    public function get(string $routeName, string $className, string $method, string $request = null): void
+    {
+        $this->routes[$routeName]['GET'] = [
+            'class'=>$className,
+            'method'=>$method,
+            'request'=>$request
+        ];
+    }
+
+    public function post(string $routeName, string $className, string $method, string $request = null): void
+    {
+        $this->routes[$routeName]['POST'] = [
+            'class'=>$className,
+            'method'=>$method,
+            'request'=>$request
+        ];
     }
 
 }
