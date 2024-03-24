@@ -26,7 +26,7 @@ class RegistrationRequest extends Request
 
     public function getPassword()
     {
-        return $this->body['password'];
+        return $this->body['psw'];
     }
 
     public function validate():array
