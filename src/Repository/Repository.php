@@ -14,7 +14,11 @@ class Repository
             return self::$pdo;
         }
 
-        self::$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
+        $db = getenv('DB_DATABASE');
+        $user = getenv('DB_USERNAME');
+        $password = getenv('DB_PASSWORD');
+
+        self::$pdo = new PDO("pgsql:host=db; port=5432; dbname=$db","$user", "$password");
 
         return self::$pdo;
     }
