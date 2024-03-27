@@ -1,11 +1,11 @@
 <?php
 
-namespace Service;
+namespace Service\Authentication;
 
 use Entity\UserEntity;
 use Repository\UserRepository;
 
-class AuthenticationService
+class CookieAuthenticationService implements AuthenticationServiceInterface
 {
     private UserRepository $userRepository;
 
@@ -13,19 +13,16 @@ class AuthenticationService
     {
         $this->userRepository = new UserRepository();
     }
+
     public function check(): bool
     {
-        if(session_status() == PHP_SESSION_NONE){
-            session_start();
-        }
-
-        return isset($_SESSION['user_id']);
+        return isset($_COOKIE['user_id']);
     }
 
     public function getCurrentUser(): UserEntity|null
     {
         if ($this->check()){
-            $userId = $_SESSION['user_id'];
+            $userId = $_COOKIE['user_id'];
 
             return $this->userRepository->getOneById($userId);
         }
@@ -42,8 +39,7 @@ class AuthenticationService
         }
 
         if (password_verify($password, $user->getPassword())){
-            session_start();
-            $_SESSION['user_id'] = $user->getId();
+            setcookie("user_id", $user->getId(), time() + 3600);
 
             return true;
         }
@@ -53,10 +49,7 @@ class AuthenticationService
 
     public function logout(): void
     {
-        session_start();
-        if (session_status() === PHP_SESSION_ACTIVE){
-            session_destroy();
-        }
+        setcookie("user_id", "", time() - 3600);
     }
 
 }

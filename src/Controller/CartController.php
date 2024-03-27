@@ -3,18 +3,18 @@
 namespace Controller;
 
 use Request\CartRequest;
+use Service\Authentication\SessionAuthenticationService;
 use Service\CartService;
-use Service\AuthenticationService;
 
 class CartController
 {
     private CartService $cartService;
-    private AuthenticationService $authenticationService;
+    private SessionAuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->cartService = new  CartService();
-        $this->authenticationService = new AuthenticationService();
+        $this->authenticationService = new SessionAuthenticationService();
     }
 
     public function getCart(): void

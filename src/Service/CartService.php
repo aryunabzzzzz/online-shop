@@ -3,16 +3,17 @@
 namespace Service;
 
 use Repository\UserProductRepository;
+use Service\Authentication\SessionAuthenticationService;
 
 class CartService
 {
     private UserProductRepository $userProductRepository;
-    private AuthenticationService $authenticationService;
+    private SessionAuthenticationService $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
-        $this->authenticationService = new AuthenticationService();
+        $this->authenticationService = new SessionAuthenticationService();
     }
 
     public function addProduct(int $productId): void
