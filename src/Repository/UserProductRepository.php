@@ -10,19 +10,19 @@ class UserProductRepository extends Repository
 {
     public function create(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("INSERT INTO users_products (user_id, product_id, quantity) VALUES (:user_id, :product_id, 1)");
+        $stmt = self::getPdo()->prepare("INSERT INTO users_products (user_id, product_id, quantity) VALUES (:user_id, :product_id, 1)");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function increaseQuantity(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("UPDATE users_products SET quantity = (quantity + 1) WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt = self::getPdo()->prepare("UPDATE users_products SET quantity = (quantity + 1) WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function getOneByUserIdProductId(int $user_id, int $product_id): UserProductEntity|null
     {
-        $stmt = $this->pdo->prepare("SELECT up.id AS id, up.quantity, 
+        $stmt = self::getPdo()->prepare("SELECT up.id AS id, up.quantity, 
         u.id AS user_id, u.name AS user_name, u.email, u.password, 
         p.id AS product_id, p.name AS product_name, p.description, p.price, p.image
         FROM users_products up 
@@ -44,7 +44,7 @@ class UserProductRepository extends Repository
 
     public function getAllByUserId(int $user_id): array
     {
-        $stmt = $this->pdo->prepare("SELECT up.id AS id, up.quantity, 
+        $stmt = self::getPdo()->prepare("SELECT up.id AS id, up.quantity, 
         u.id AS user_id, u.name AS user_name, u.email, u.password, 
         p.id AS product_id, p.name AS product_name, p.description, p.price, p.image
         FROM users_products up 
@@ -72,19 +72,19 @@ class UserProductRepository extends Repository
 
     public function decreaseQuantity(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("UPDATE users_products SET quantity = (quantity - 1) WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt = self::getPdo()->prepare("UPDATE users_products SET quantity = (quantity - 1) WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function delete(int $user_id, int $product_id): void
     {
-        $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
+        $stmt = self::getPdo()->prepare("DELETE FROM users_products WHERE user_id = :user_id AND product_id = :product_id");
         $stmt->execute(['user_id'=>$user_id, 'product_id'=>$product_id]);
     }
 
     public function deleteAllByUserId(int $user_id): void
     {
-        $stmt = $this->pdo->prepare("DELETE FROM users_products WHERE user_id = :user_id");
+        $stmt = self::getPdo()->prepare("DELETE FROM users_products WHERE user_id = :user_id");
         $stmt->execute(['user_id'=>$user_id]);
     }
 

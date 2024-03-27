@@ -12,19 +12,18 @@ class OrderService
     private OrderRepository $orderRepository;
     private OrderProductRepository $orderProductRepository;
     private UserProductRepository $userProductRepository;
-    private Repository $repository;
 
     public function __construct()
     {
         $this->orderRepository = new OrderRepository();
         $this->orderProductRepository = new OrderProductRepository();
         $this->userProductRepository = new UserProductRepository();
-        $this->repository = new Repository();
     }
 
     public function create(int $userId, string $fullName, string $phone, string $address): void
     {
-        $this->repository->beginTransaction();
+        $pdo = Repository::getPdo();
+        $pdo->beginTransaction();
 
         try {
 
@@ -38,10 +37,10 @@ class OrderService
 
             $this->userProductRepository->deleteAllByUserId($userId);
 
-            $this->repository->commitTransaction();
+            $pdo->commit();
 
         } catch (\Throwable $exception){
-            $this->repository->rollbackTransaction();
+            $pdo->rollBack();
         }
     }
 }

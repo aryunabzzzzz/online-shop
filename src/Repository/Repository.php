@@ -6,25 +6,16 @@ use PDO;
 
 class Repository
 {
-    protected PDO $pdo;
+    protected static PDO $pdo;
 
-    public function __construct()
+    public static function getPdo(): PDO
     {
-        $this->pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
-    }
+        if (isset(self::$pdo)){
+            return self::$pdo;
+        }
 
-    public function beginTransaction(): bool
-    {
-        return $this->pdo->beginTransaction();
-    }
+        self::$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel","root", "root");
 
-    public function rollbackTransaction(): bool
-    {
-        return $this->pdo->rollBack();
-    }
-
-    public function commitTransaction(): bool
-    {
-        return $this->pdo->commit();
+        return self::$pdo;
     }
 }
