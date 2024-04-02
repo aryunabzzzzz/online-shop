@@ -32,7 +32,7 @@ class App
                     $requestClass = Request::class;
 
                     if (isset($handler['request'])){
-                        $requestClass = $handlr['request'];
+                        $requestClass = $handler['request'];
                     }
 
                     $request = new $requestClass($method, $requestUri, headers_list(), $_POST);
