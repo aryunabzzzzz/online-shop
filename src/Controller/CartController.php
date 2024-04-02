@@ -11,10 +11,10 @@ class CartController
     private CartService $cartService;
     private AuthenticationServiceInterface $authenticationService;
 
-    public function __construct(AuthenticationServiceInterface $authenticationService)
+    public function __construct(AuthenticationServiceInterface $authenticationService, CartService $cartService)
     {
-        $this->cartService = new  CartService();
         $this->authenticationService = $authenticationService;
+        $this->cartService = $cartService;
     }
 
     public function getCart(): void

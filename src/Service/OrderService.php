@@ -13,11 +13,11 @@ class OrderService
     private OrderProductRepository $orderProductRepository;
     private UserProductRepository $userProductRepository;
 
-    public function __construct()
+    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository, UserProductRepository $userProductRepository)
     {
-        $this->orderRepository = new OrderRepository();
-        $this->orderProductRepository = new OrderProductRepository();
-        $this->userProductRepository = new UserProductRepository();
+        $this->orderRepository = $orderRepository;
+        $this->orderProductRepository = $orderProductRepository;
+        $this->userProductRepository = $userProductRepository;
     }
 
     public function create(int $userId, string $fullName, string $phone, string $address): void

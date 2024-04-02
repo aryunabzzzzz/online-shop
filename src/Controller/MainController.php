@@ -10,10 +10,10 @@ class MainController
     private ProductRepository $productRepository;
     private AuthenticationServiceInterface $authenticationService;
 
-    public function __construct(AuthenticationServiceInterface $authenticationService)
+    public function __construct(AuthenticationServiceInterface $authenticationService, ProductRepository $productRepository)
     {
-        $this->productRepository = new ProductRepository();
         $this->authenticationService = $authenticationService;
+        $this->productRepository = $productRepository;
     }
 
     public function getMain(): void

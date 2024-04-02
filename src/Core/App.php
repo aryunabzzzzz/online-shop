@@ -3,11 +3,16 @@
 namespace Core;
 
 use Request\Request;
-use Service\Authentication\SessionAuthenticationService;
 
 class App
 {
     private array $routes = [];
+    private Container $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function run(): void
     {
@@ -30,9 +35,7 @@ class App
 
                 $request = new $requestClass($method, $requestUri, headers_list(), $_POST);
 
-                $authService = new SessionAuthenticationService();
-
-                $obj = new $className($authService);
+                $obj = $this->container->get($className);
                 $obj->$method($request);
 
             } else {
