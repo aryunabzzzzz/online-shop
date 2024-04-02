@@ -6,6 +6,8 @@ use Controller\MainController;
 use Controller\OrderController;
 use Controller\UserController;
 use Core\Container;
+use Core\Logger;
+use Psr\Log\LoggerInterface;
 use Repository\OrderProductRepository;
 use Repository\OrderRepository;
 use Repository\ProductRepository;
@@ -57,5 +59,8 @@ return [
     },
     AuthenticationServiceInterface::class => function (){
         return new SessionAuthenticationService();
+    },
+    LoggerInterface::class => function () {
+        return new Logger();
     }
 ];
