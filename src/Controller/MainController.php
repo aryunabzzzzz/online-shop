@@ -3,17 +3,17 @@
 namespace Controller;
 
 use Repository\ProductRepository;
-use Service\Authentication\SessionAuthenticationService;
+use Service\Authentication\AuthenticationServiceInterface;
 
 class MainController
 {
     private ProductRepository $productRepository;
-    private SessionAuthenticationService $authenticationService;
+    private AuthenticationServiceInterface $authenticationService;
 
-    public function __construct()
+    public function __construct(AuthenticationServiceInterface $authenticationService)
     {
         $this->productRepository = new ProductRepository();
-        $this->authenticationService = new SessionAuthenticationService();
+        $this->authenticationService = $authenticationService;
     }
 
     public function getMain(): void

@@ -5,17 +5,17 @@ namespace Controller;
 use Repository\UserRepository;
 use Request\LoginRequest;
 use Request\RegistrationRequest;
-use Service\Authentication\SessionAuthenticationService;
+use Service\Authentication\AuthenticationServiceInterface;
 
 class UserController
 {
     private UserRepository $userRepository;
-    private SessionAuthenticationService $authenticationService;
+    private AuthenticationServiceInterface $authenticationService;
 
-    public function __construct()
+    public function __construct(AuthenticationServiceInterface $authenticationService)
     {
         $this->userRepository = new UserRepository();
-        $this->authenticationService = new SessionAuthenticationService();
+        $this->authenticationService = $authenticationService;
     }
 
     public function getRegistration(): void

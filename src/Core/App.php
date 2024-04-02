@@ -3,6 +3,7 @@
 namespace Core;
 
 use Request\Request;
+use Service\Authentication\SessionAuthenticationService;
 
 class App
 {
@@ -29,7 +30,9 @@ class App
 
                 $request = new $requestClass($method, $requestUri, headers_list(), $_POST);
 
-                $obj = new $className;
+                $authService = new SessionAuthenticationService();
+
+                $obj = new $className($authService);
                 $obj->$method($request);
 
             } else {
