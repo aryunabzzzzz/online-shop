@@ -13,7 +13,8 @@ use Request\OrderRequest;
 use Request\RegistrationRequest;
 
 require_once "./../../vendor/aryuna/my-core/Core/Autoloader.php";
-//require_once "./../../vendor/aryuna/my-core/Core/Container.php";
+require_once "./../../vendor/aryuna/my-core/Core/App.php";
+require_once "./../../vendor/aryuna/my-core/Core/Container.php";
 require_once "./../../vendor/autoload.php";
 
 Autoloader::registrate(dirname(__DIR__));
