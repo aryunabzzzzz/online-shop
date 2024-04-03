@@ -7,23 +7,13 @@ use Controller\UserController;
 use Core\Autoloader;
 use Core\App;
 use Core\Container;
-use Repository\OrderProductRepository;
-use Repository\OrderRepository;
-use Repository\ProductRepository;
-use Repository\UserProductRepository;
-use Repository\UserRepository;
 use Request\CartRequest;
 use Request\LoginRequest;
 use Request\OrderRequest;
 use Request\RegistrationRequest;
-use Service\Authentication\AuthenticationServiceInterface;
-use Service\Authentication\SessionAuthenticationService;
-use Service\CartService;
-use Service\OrderService;
 
-require_once "./../Core/App.php";
-require_once "./../Core/Autoloader.php";
-
+require_once "./../../vendor/aryuna/my-core/Core/Autoloader.php";
+//require_once "./../../vendor/aryuna/my-core/Core/Container.php";
 require_once "./../../vendor/autoload.php";
 
 Autoloader::registrate(dirname(__DIR__));
