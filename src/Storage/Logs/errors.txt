@@ -1,0 +1,178 @@
+[2024-04-02-04-2024-13-39-07] error: code execution error
+Сообщение об ошибке: Class name must be a valid object or a string
+Код: 0
+Файл: /var/www/html/src/Core/App.php
+Строка: 38
+Стэк: #0 /var/www/html/src/public/index.php(56): Core\App->run()
+#1 {main}
+Подробная информация: Error: Class name must be a valid object or a string in /var/www/html/src/Core/App.php:38
+Stack trace:
+#0 /var/www/html/src/public/index.php(56): Core\App->run()
+#1 {main}
+
+[2024-04-02-04-2024-13-39-12] error: code execution error
+Сообщение об ошибке: Class name must be a valid object or a string
+Код: 0
+Файл: /var/www/html/src/Core/App.php
+Строка: 38
+Стэк: #0 /var/www/html/src/public/index.php(56): Core\App->run()
+#1 {main}
+Подробная информация: Error: Class name must be a valid object or a string in /var/www/html/src/Core/App.php:38
+Stack trace:
+#0 /var/www/html/src/public/index.php(56): Core\App->run()
+#1 {main}
+
+[2024-04-02-04-2024-13-44-38] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-44-41] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-44-43] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-44-43] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-44-48] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-45-28] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+
+[2024-04-02-04-2024-13-45-30] error: code execution error
+Сообщение об ошибке: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^
+Код: 42601
+Файл: /var/www/html/src/Repository/ProductRepository.php
+Строка: 11
+Стэк: #0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+Подробная информация: PDOException: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "SELECTe"
+LINE 1: SELECTe * FROM products
+        ^ in /var/www/html/src/Repository/ProductRepository.php:11
+Stack trace:
+#0 /var/www/html/src/Repository/ProductRepository.php(11): PDO->query('SELECTe * FROM ...')
+#1 /var/www/html/src/Controller/MainController.php(25): Repository\ProductRepository->getAll()
+#2 /var/www/html/src/Core/App.php(41): Controller\MainController->getMain(Object(Request\Request))
+#3 /var/www/html/src/public/index.php(56): Core\App->run()
+#4 {main}
+

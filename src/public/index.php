@@ -24,6 +24,8 @@ use Service\OrderService;
 require_once "./../Core/App.php";
 require_once "./../Core/Autoloader.php";
 
+require_once "./../../vendor/autoload.php";
+
 Autoloader::registrate(dirname(__DIR__));
 
 $services = include './../Config/services.php';
