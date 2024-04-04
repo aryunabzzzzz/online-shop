@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aryuna/my-core",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aryunabzzzzz/my-core.git",
-                "reference": "410dca6d6dc637a1287cd13becea4caeadfefc8c"
+                "reference": "dd2ad981512be54856bd217d10a07b7457e465cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aryunabzzzzz/my-core/zipball/410dca6d6dc637a1287cd13becea4caeadfefc8c",
-                "reference": "410dca6d6dc637a1287cd13becea4caeadfefc8c",
+                "url": "https://api.github.com/repos/aryunabzzzzz/my-core/zipball/dd2ad981512be54856bd217d10a07b7457e465cf",
+                "reference": "dd2ad981512be54856bd217d10a07b7457e465cf",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "description": "my core package",
             "support": {
                 "issues": "https://github.com/aryunabzzzzz/my-core/issues",
-                "source": "https://github.com/aryunabzzzzz/my-core/tree/v1.0.1"
+                "source": "https://github.com/aryunabzzzzz/my-core/tree/v1.0.3"
             },
-            "time": "2024-04-03T04:33:29+00:00"
+            "time": "2024-04-04T04:09:37+00:00"
         },
         {
             "name": "psr/log",
